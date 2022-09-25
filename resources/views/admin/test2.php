@@ -1,2 +1,4 @@
 <?php include "menu.php" ?>
-<h2>Test page 2</h2>
+<div class="container">
+    <h4 class="mt-3">Тестовая страница 2</h4>
+</div>

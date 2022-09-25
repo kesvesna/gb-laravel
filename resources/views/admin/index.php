@@ -1,2 +1,5 @@
 <?php include "menu.php" ?>
-<h2>Admin page</h2>
+<div class="container">
+    <h4 class="mt-3">Страница администратора</h4>
+</div>
+
