@@ -1,4 +1,6 @@
-<a href="/">Главная</a>
-<a href="/news/all">Все новости</a>
-<a href="/news/one">Новость</a>
+<a href="<?= route('home'); ?>">Главная</a>
+<a href="<?= route('news'); ?>">Новости</a>
+<a href="<?= route('admin.index'); ?>">Админка</a>
 <a href="/about">О проекте</a>
+<a href="<?= route('login'); ?>">Вход</a>
+
