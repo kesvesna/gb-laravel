@@ -1,9 +1,19 @@
 <?php include "menu.php" ?>
 <div class="container">
     <h4 class="mt-3">Новости: <?= $categories['name'];?></h4>
-    <?php foreach($news as $items):?>
-        <a href="<?= route('one_new', [$categories['slug'], $items['id']]);?>"><?= $items['title'];?></a><hr>
-    <?php endforeach;?>
+    <div class="cards-container mt-4">
+        <?php foreach($news as $items): ?>
+            <div class="card mt-3" style="">
+                <div class="card-body">
+                    <h5 class="card-title"><?= $items['title'];?></h5>
+                    <a href="<?= route('one_new', [$categories['slug'], $items['id']]);?>" class="btn btn-primary">Читать</a>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+
+
+
 </div>
 
 
