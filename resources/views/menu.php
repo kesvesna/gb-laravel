@@ -6,7 +6,7 @@
                     <a class="nav-link active" aria-current="page" href="<?= route('home'); ?>">Главная</a>
                     <a class="nav-link" href="<?= route('news'); ?>">Новости</a>
                     <a class="nav-link" href="<?= route('admin.index'); ?>">Админка</a>
-                    <a class="nav-link" href="/about">О проекте</a>
+                    <a class="nav-link" href="<?= route('about'); ?>">О проекте</a>
                     <a class="nav-link" href="<?= route('login'); ?>">Вход</a>
                 </div>
             </div>

@@ -6,7 +6,7 @@
             <div class="card mt-3" style="">
                 <div class="card-body">
                     <h5 class="card-title"><?= $items['title'];?></h5>
-                    <a href="<?= route('one_new', [$categories['slug'], $items['id']]);?>" class="btn btn-primary">Читать</a>
+                    <a href="<?= route('news.one', [$categories['slug'], $items['id']]);?>" class="btn btn-primary">Читать</a>
                 </div>
             </div>
         <?php endforeach; ?>

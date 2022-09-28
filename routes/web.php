@@ -36,13 +36,13 @@ Route::prefix('news')
     ->group(function(){
         Route::get('/add_new', [NewsController::class, 'add'])->name('add_new');
         Route::get('/', [NewsController::class, 'index'])->name('news');
-        Route::get('/{category}/{id}', [NewsController::class, 'show'])->where('id', '[0-9]+')->name('one_new');
+        Route::get('/{category}/{id}', [NewsController::class, 'show'])->where('id', '[0-9]+')->name('news.one');
         Route::get('/{category}', [NewsCategoriesController::class, 'show'])->name('category');
     });
 
 //==============================================================================
 
-Route::view('/about','about');
+Route::view('/about','about')->name('about');
 
 Route::fallback(function (){
     return view('errors.404');

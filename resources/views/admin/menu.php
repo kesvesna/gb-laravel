@@ -6,8 +6,8 @@
                 <a class="nav-link active" aria-current="page" href="<?= route('home'); ?>">Главная</a>
                 <a class="nav-link" href="<?= route('admin.index'); ?>">Админка</a>
                 <a class="nav-link" href="<?= route('admin.test1'); ?>">Тестовая страница 1</a>
-                <a class="nav-link" href="<?= route('admin.test2'); ?>">Тестовая страница 2</a>
-                <a class="nav-link" href="/about">О проекте</a>
+                <a class="nav-link" href="<?= route('add_new'); ?>">Добавить новость</a>
+                <a class="nav-link" href="<?= route('about'); ?>">О проекте</a>
                 <a class="nav-link" href="<?= route('login'); ?>">Вход</a>
             </div>
         </div>

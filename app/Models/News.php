@@ -53,7 +53,7 @@ class News
         {
             if($news['category_id'] == $id)
             {
-                array_push($news_with_one_category, $news);
+                $news_with_one_category[] = $news;
             }
         }
         return $news_with_one_category;

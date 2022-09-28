@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-class NewsCategories
+class NewsCategory
 {
-    private static $categories = [
+    private static array $categories = [
         [
             'id' => 1,
             'name' => 'Политика',
