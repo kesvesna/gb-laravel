@@ -1,12 +1,14 @@
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Добавление новости</title>
-    <link type="text/css" rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css" />
-</head>
-<body>
-<?php include_once "menu.php"; ?>
+@extends('layouts.main')
+
+@section('title')
+    @parent Добавление новости
+@endsection
+
+@section('menu')
+    @include('menu')
+@endsection
+
+@section('content')
 <div class="main-content" style="display: flex; justify-content: center">
     <form class="col-6 mt-5">
         <h3>Добавление новости</h3>
@@ -35,7 +37,5 @@
         <button type="submit" class="btn btn-primary">Сохранить</button>
     </form>
 </div>
-<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
-<script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
-</body>
+@endsection
 

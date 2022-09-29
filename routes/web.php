@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\News\NewsCategoriesController as NewsCategoriesController;
 use App\Http\Controllers\News\NewsController as NewsController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,8 +19,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 //phpinfo();
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/login', [LoginController::class, 'index'])->name('login');
+
+Route::view('/vue', 'vue')->name('vue');
 
 //=========================================================================================================
 Route::name('admin.')
@@ -47,4 +52,8 @@ Route::view('/about','about')->name('about');
 Route::fallback(function (){
     return view('errors.404');
 });
+
+
+
+Auth::routes();
 

@@ -3,27 +3,25 @@
 namespace App\Http\Controllers\News;
 
 use App\Http\Controllers\Controller;
-use App\Models\News;
-use App\Models\NewsCategory;
-use Illuminate\Http\Request;
+use App\Models\News\News;
+use App\Models\News\Category;
 
 class NewsCategoriesController extends Controller
 {
-    public function index(): string
+    public function index(Category $categories): string
     {
-        $categories = NewsCategory::getCategories();
-        return view('news.index')->with('news', $categories);
+        return view('news.index')->with('news', $categories->getCategories());
     }
 
-    public function show($slug)
+    public function show($slug, Category $categories, News $news)
     {
-        $categories = NewsCategory::getCategoriesBySlug($slug);
+        $categories = $categories->getCategoriesBySlug($slug);
         if($categories == null)
         {
             return redirect('news.index');
         }
 
-        $news = News::getByCategoriesId($categories['id']);
+        $news = $news->getByCategoriesId($categories['id']);
         if($news != null){
             return view('news.category')->with([
                 'news' => $news,
