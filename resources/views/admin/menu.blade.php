@@ -1,4 +1,4 @@
-@section('menu')
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -13,5 +13,5 @@
         </div>
     </div>
 </nav>
-@endsection
+
 
