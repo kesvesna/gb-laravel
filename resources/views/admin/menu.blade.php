@@ -1,17 +1,24 @@
+<li class="nav-item">
+    <a class="nav-link {{ request()->routeIs('home')?'active':'' }}" aria-current="page" href="{{ route('home') }}">Главная</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link {{ request()->routeIs('admin.index')?'active':'' }}" href="{{ route('admin.index') }}">Админка</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link {{ request()->routeIs('admin.test1')?'active':'' }}" href="{{ route('admin.test1') }}">Скачать изображение</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link {{ request()->routeIs('admin.test2')?'active':'' }}" href="{{ route('admin.test2') }}">Скачать текст</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link {{ request()->routeIs('add_new')?'active':'' }}" href="{{ route('add_new') }}">Добавить новость</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link {{ request()->routeIs('about')?'active':'' }}" href="{{ route('about') }}">О проекте</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link {{ request()->routeIs('login')?'active':'' }}" href="{{ route('login') }}">Вход</a>
+</li>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-link active" aria-current="page" href="{{ route('home') }}">Главная</a>
-                <a class="nav-link" href="{{ route('admin.index') }}">Админка</a>
-                <a class="nav-link" href="{{ route('admin.test1') }}">Тестовая страница 1</a>
-                <a class="nav-link" href="{{ route('add_new') }}">Добавить новость</a>
-                <a class="nav-link" href="{{ route('about') }}">О проекте</a>
-                <a class="nav-link" href="{{ route('login') }}">Вход</a>
-            </div>
-        </div>
-    </div>
-</nav>
 
 

@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.app')
 
 @section('title')
     @parent Одной новости
@@ -10,17 +10,25 @@
 
 @section('content')
 <div class="container">
-    <h4 class="mt-3">Новости: {{ $categories['name'] }}</h4>
-    @if ($news)
-        @if (!$news['isPrivate'])
-            <h5>{{ $news['title'] }}</h5>
-            <p>{{ $news['text'] }}</p>
-        @else
-            <p>Зарегистрируйтесь для просмотра всех новостей</p>
-        @endif
-    @else
-        <p>Нет такой новости</p>
-    @endif
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">Новости: {{ $categories['name'] }}</div>
+                <div class="card-body">
+                    @if ($news)
+                        @if (!$news['isPrivate'])
+                            <h5>{{ $news['title'] }}</h5>
+                            <p>{{ $news['text'] }}</p>
+                        @else
+                            <p>Зарегистрируйтесь для просмотра всех новостей</p>
+                        @endif
+                    @else
+                        <p>Нет такой новости</p>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
 

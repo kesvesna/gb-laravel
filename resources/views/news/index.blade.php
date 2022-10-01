@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.app')
 
 @section('title')
     @parent Новости
@@ -10,6 +10,8 @@
 
 @section('content')
 <div class="container">
+    <div class="row justify-content-center">
+    <div class="col-md-12">
     <h4 class="mt-3">Новости</h4>
     <div class="cards-container mt-5" style="display: flex; justify-content: space-around">
         @forelse($categories as $item)
@@ -23,6 +25,8 @@
         @empty
             <p>Нет новостей</p>
         @endforelse
+    </div>
+    </div>
     </div>
 </div>
 @endsection

@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.app')
 
 @section('title')
     @parent О проекте
@@ -10,6 +10,10 @@
 
 @section('content')
 <div class="container">
-    <h4 class="mt-3">О нас</h4>
+    <div class="row justify-content-center">
+    <div class="col-md-12">
+        <h4 class="mt-3">О нас</h4>
+    </div>
+    </div>
 </div>
 @endsection

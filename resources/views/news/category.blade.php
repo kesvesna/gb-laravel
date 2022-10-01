@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.app')
 
 @section('title')
     @parent Категории новостей
@@ -10,18 +10,27 @@
 
 @section('content')
 <div class="container">
+    <div class="row justify-content-center">
+    <div class="col-md-12">
     <h4 class="mt-3">Новости: {{ $categories['name'] }}</h4>
-    <div class="cards-container mt-4">
-        @forelse($news as $items)
-            <div class="card mt-3" style="">
-                <div class="card-body">
-                    <h5 class="card-title">{{ $items['title'] }}</h5>
-                    <a href="{{ route('news.one', [$categories['slug'], $items['id']]) }}" class="btn btn-primary">Читать</a>
+    </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            @forelse($news as $items)
+                <div class="card mt-2">
+                    <h5 class="card-header">{{ $items['title'] }}</h5>
+                    <div class="card-body">
+                        <a href="{{ route('news.one', [$categories['slug'], $items['id']]) }}" class="btn btn-primary">Читать</a>
+                    </div>
                 </div>
-            </div>
-        @empty
-            <p>Нет новостей</p>
-        @endforelse
+            @empty
+                <p>Нет новостей</p>
+            @endforelse
+        </div>
     </div>
 </div>
 @endsection
