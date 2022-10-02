@@ -16,7 +16,7 @@
                 <div class="card-header">Новости: {{ $categories['name'] }}</div>
                 <div class="card-body">
                     @if ($news)
-                        @if (!$news['isPrivate'])
+                        @if(!$news['isPrivate'])
                             <h5>{{ $news['title'] }}</h5>
                             <p>{{ $news['text'] }}</p>
                         @else

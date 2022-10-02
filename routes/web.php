@@ -26,6 +26,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::view('/vue', 'vue')->name('vue');
 
+Route::get('/save', [HomeController::class, 'save'])->name('save');
+
 //=========================================================================================================
 Route::name('admin.')
     ->prefix('admin')
@@ -34,12 +36,14 @@ Route::name('admin.')
         Route::get('/', [AdminIndexController::class, 'index'])->name('index');
         Route::get('/test1', [AdminIndexController::class, 'test1'])->name('test1');
         Route::get('/test2', [AdminIndexController::class, 'test2'])->name('test2');
+        Route::match(['get', 'post'], '/create', [AdminIndexController::class, 'create'])->name('create');
     });
 
 //=========================================================================================================
 Route::prefix('news')
     ->group(function(){
-        Route::get('/add_new', [NewsController::class, 'add'])->name('add_new');
+        Route::get('/export', [NewsController::class, 'export'])->name('export');
+        Route::get('/pdf', [NewsController::class, 'pdf'])->name('pdf');
         Route::get('/', [NewsController::class, 'index'])->name('news');
         Route::get('/{category}/{id}', [NewsController::class, 'show'])->where('id', '[0-9]+')->name('news.one');
         Route::get('/{category}', [NewsCategoriesController::class, 'show'])->name('category');
