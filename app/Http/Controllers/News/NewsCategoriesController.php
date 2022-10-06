@@ -20,8 +20,7 @@ class NewsCategoriesController extends Controller
         {
             return redirect('news.index');
         }
-
-        $news = $news->getByCategoriesId($categories['id']);
+        $news = $news->getByCategoriesId($categories[0]->id);
         if($news != null){
             return view('news.category')->with([
                 'news' => $news,

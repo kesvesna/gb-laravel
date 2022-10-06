@@ -17,9 +17,8 @@
         @forelse($categories as $item)
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
-                    <h5 class="card-title">{{ $item['name'] }}</h5>
-                    <p class="card-text">Short description ...</p>
-                    <a href="{{ route('category', $item['slug']) }}" class="btn btn-primary">Читать</a>
+                    <h5 class="card-title">{{ $item->name }}</h5>
+                    <a href="{{ route('category', $item->slug) }}" class="btn btn-primary">Читать</a>
                 </div>
             </div>
         @empty
@@ -40,8 +39,8 @@
                             <select name="category_id" id="newsCategory" class="form-control">
                                     <option value="0">Все категории</option>
                                 @forelse($categories as $category)
-                                    <option @if($category['id'] == old('category')) selected @endif
-                                    value="{{ $category['id'] }}">{{ $category['name'] }}
+                                    <option @if($category->id == old('category')) selected @endif
+                                    value="{{ $category->id }}">{{ $category->name }}
                                     </option>
                                 @empty
                                     <option value="0">Нет категорий</option>

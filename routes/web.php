@@ -6,7 +6,10 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\News\NewsCategoriesController as NewsCategoriesController;
 use App\Http\Controllers\News\NewsController as NewsController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -57,7 +60,25 @@ Route::fallback(function (){
     return view('errors.404');
 });
 
-
-
 Auth::routes();
+
+// routes for pictures from storage
+Route::get('storage/{filename}', function($filename)
+{
+
+    $path = storage_path('app/public/' . $filename);
+
+    if(!File::exists($path))
+    {
+        abort(404);
+    }
+
+    $file=File::get($path);
+    $type=File::mimeType($path);
+
+    $response = Response::make($file, 200);
+    $response->header('Content-Type', $type);
+
+    return $response;
+});
 

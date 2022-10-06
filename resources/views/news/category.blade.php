@@ -12,7 +12,7 @@
 <div class="container">
     <div class="row justify-content-center">
     <div class="col-md-12">
-    <h4 class="mt-3">Новости: {{ $categories['name'] }}</h4>
+    <h4 class="mt-3">Новости: {{ $categories[0]->name }}</h4>
     </div>
     </div>
 </div>
@@ -22,9 +22,9 @@
         <div class="col-md-12">
             @forelse($news as $items)
                 <div class="card mt-2">
-                    <h5 class="card-header">{{ $items['title'] }}</h5>
+                    <h5 class="card-header">{{ $items->title }}</h5>
                     <div class="card-body">
-                        <a href="{{ route('news.one', [$categories['slug'], $items['id']]) }}" class="btn btn-primary">Читать</a>
+                        <a href="{{ route('news.one', [$categories[0]->slug, $items->id]) }}" class="btn btn-primary">Читать</a>
                     </div>
                 </div>
             @empty

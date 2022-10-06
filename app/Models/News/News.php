@@ -2,6 +2,8 @@
 
 namespace App\Models\News;
 
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
@@ -28,31 +30,19 @@ class News
         return $news;
     }
 
-    public function getNews(): array
+    public function getNews()
     {
-        return json_decode(Storage::disk('local')->get('news.json'), true);
+        return DB::table('news')->get();
     }
 
-    public function getNewsId($id): ?array
+    public function getNewsId($id)
     {
-        if(array_key_exists($id, $this->getNews()))
-        {
-            return $this->getNews()[$id];
-        }
-        return null;
+        return DB::table('news')->find($id);
     }
 
-    public function getByCategoriesId($id): ?array
+    public function getByCategoriesId($id)
     {
-        $news_with_one_category = [];
-        foreach($this->getNews() as $news)
-        {
-            if($news['category_id'] == $id)
-            {
-                $news_with_one_category[] = $news;
-            }
-        }
-        return $news_with_one_category;
+        return DB::table('news')->where('category_id', '=', $id)->get();
     }
 
 }

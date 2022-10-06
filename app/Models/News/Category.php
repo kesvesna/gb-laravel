@@ -2,50 +2,24 @@
 
 namespace App\Models\News;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class Category
 {
-    public function getCategories(): array
+    public function getCategories()
     {
-        return json_decode(Storage::disk('local')->get('categories.json'), true);
+        return DB::table('news_categories')->get();
     }
 
-    public function getCategoriesBySlug($slug): ?array
+    public function getCategoriesBySlug($slug)
     {
-        foreach($this->getCategories() as $categories){
-            if($categories['slug'] == $slug){
-                return $categories;
-            }
-        }
-        return null;
-    }
-
-    public function getCategoryIdBySlug($slug): int
-    {
-        $id = null;
-        foreach($this->getCategories() as $category)
-        {
-            if($category['slug'] == $slug)
-            {
-                $id = $category['id'];
-                break;
-            }
-        }
-        return $id;
+        return DB::table('news_categories')->where('slug', '=', $slug)->get();
     }
 
     public function getCategorySlugById($id): string
     {
-        $slug = null;
-        foreach($this->getCategories() as $category)
-        {
-            if($category['id'] == $id)
-            {
-                $slug = $category['slug'];
-                break;
-            }
-        }
-        return $slug;
+        $category = DB::table('news_categories')->find($id);
+        return $category->slug;
     }
 }
