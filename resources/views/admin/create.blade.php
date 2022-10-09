@@ -20,7 +20,7 @@
                                 <label for="newsCategory">Категории новостей</label>
                                 <select name="category_id" id="newsCategory" class="form-control">
                                     @forelse($categories as $category)
-                                       <option @if($category->id == old('category')) selected @endif
+                                       <option @if($category->id == old('categories')) selected @endif
                                                 value="{{ $category->id }}">{{ $category->name }}
                                        </option>
                                     @empty

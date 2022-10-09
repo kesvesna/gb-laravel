@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\News\News;
 use App\Models\News\Category;
 use App\Models\News\NewsExport;
+use App\Queries\NewsQueryBuilder;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -69,5 +70,24 @@ class NewsController extends Controller
     private function json($news)
     {
         return $news;
+    }
+
+    //TODO public function create
+    //TODO public function read
+    //TODO public function update
+    //TODO public function delete
+
+    public function store(Request $request, NewsQueryBuilder $builder)
+    {
+        $news = $builder->create(
+            $request->only(['category_id', 'title', 'is_private', 'description'])
+        );
+
+        if($news)
+        {
+            return redirect()->route('news')->with('success', 'ЗАпись добавлена');
+        }
+
+        return redirect()->route('admin.index')->with('error', 'ЗАпись не добавлена');
     }
 }

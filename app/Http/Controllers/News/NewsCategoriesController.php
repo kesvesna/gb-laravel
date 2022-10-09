@@ -22,7 +22,7 @@ class NewsCategoriesController extends Controller
         }
         $news = $news->getByCategoriesId($categories[0]->id);
         if($news != null){
-            return view('news.category')->with([
+            return view('news.categories')->with([
                 'news' => $news,
                 'categories' => $categories
             ]);

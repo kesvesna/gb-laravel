@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\IndexController as AdminIndexController;
+use App\Http\Controllers\Admin\News\IndexController as AdminNewsIndexController;
+use App\Http\Controllers\Admin\News\CategoryController as AdminNewsCategoriesController;
+use App\Http\Controllers\Admin\News\SourceController as AdminNewsSourcesController;
+
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\News\NewsCategoriesController as NewsCategoriesController;
@@ -36,10 +40,48 @@ Route::name('admin.')
     ->prefix('admin')
     ->namespace('Admin')
     ->group(function(){
+
         Route::get('/', [AdminIndexController::class, 'index'])->name('index');
         Route::get('/test1', [AdminIndexController::class, 'test1'])->name('test1');
         Route::get('/test2', [AdminIndexController::class, 'test2'])->name('test2');
         Route::match(['get', 'post'], '/create', [AdminIndexController::class, 'create'])->name('create');
+
+        Route::name('news.')
+            ->prefix('news')
+            ->namespace('News')
+            ->group(function(){
+                Route::get('/', [AdminNewsIndexController::class, 'index'])->name('index');
+                Route::get('/create/{id?}', [AdminNewsIndexController::class, 'create'])->name('create');
+                Route::get('/view/{id}', [AdminNewsIndexController::class, 'view'])->name('view');
+                Route::post('/store/{id?}', [AdminNewsIndexController::class, 'store'])->name('store');
+                Route::get('/delete/{id}', [AdminNewsIndexController::class, 'delete'])->name('delete');
+
+
+                Route::name('categories.')
+                    ->prefix('categories')
+                    ->namespace('categories')
+                    ->group(function(){
+                        Route::get('/', [AdminNewsCategoriesController::class, 'index'])->name('index');
+                        Route::get('/create/{id?}', [AdminNewsCategoriesController::class, 'create'])->name('create');
+                        Route::get('/view/{id}', [AdminNewsCategoriesController::class, 'view'])->name('view');
+                        Route::post('/store/{id?}', [AdminNewsCategoriesController::class, 'store'])->name('store');
+                        Route::get('/delete/{id}', [AdminNewsCategoriesController::class, 'delete'])->name('delete');
+                    });
+
+                Route::name('sources.')
+                    ->prefix('sources')
+                    ->namespace('sources')
+                    ->group(function(){
+                        Route::get('/', [AdminNewsSourcesController::class, 'index'])->name('index');
+                        Route::get('/create/{id?}', [AdminNewsSourcesController::class, 'create'])->name('create');
+                        Route::get('/view/{id}', [AdminNewsSourcesController::class, 'view'])->name('view');
+                        Route::post('/store/{id?}', [AdminNewsSourcesController::class, 'store'])->name('store');
+                        Route::get('/delete/{id}', [AdminNewsSourcesController::class, 'delete'])->name('delete');
+                    });
+
+                //TODO DI in routes
+            });
+
     });
 
 //=========================================================================================================
@@ -48,8 +90,8 @@ Route::prefix('news')
         Route::get('/export', [NewsController::class, 'export'])->name('export');
         Route::get('/pdf', [NewsController::class, 'pdf'])->name('pdf');
         Route::get('/', [NewsController::class, 'index'])->name('news');
-        Route::get('/{category}/{id}', [NewsController::class, 'show'])->where('id', '[0-9]+')->name('news.one');
-        Route::get('/{category}', [NewsCategoriesController::class, 'show'])->name('category');
+        Route::get('/{categories}/{id}', [NewsController::class, 'show'])->where('id', '[0-9]+')->name('news.one');
+        Route::get('/{categories}', [NewsCategoriesController::class, 'show'])->name('categories');
     });
 
 //==============================================================================

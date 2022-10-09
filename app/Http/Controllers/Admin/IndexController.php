@@ -33,20 +33,30 @@ class IndexController extends Controller
     {
         if($request->isMethod(('post')))
         {
-            $news[] = $request->except('_token');
-            $news[0]['source_id'] = 2;
-            $news[0]['image'] = '';
-            $news[0]['short_description'] = $news[0]['description'];
-            $news[0]['created_at'] = now();
-            $news[0]['updated_at'] = now();
-            $news[0]['deleted_at'] = null;
+            $request->validate([
+                'title' => ['required', 'string', 'min:5', 'max:255'],
+                'description' => ['required', 'min:5']
+                ]);
+            //$data = $request->only(['category_id', 'title', 'is_private', 'description']);
+            $news = new News($categories);
+            $news->title = $request->input('title');
+            $news->description = $request->input('description');
+            $news->short_description = $news->description;
+            $news->category_id = $request->input('category_id');
+            $news->source_id = 2;
 
-            if(!array_key_exists('is_private', $news[0]))
+            if(is_null($request->input('is_private')))
             {
-                $news[0]['is_private'] = false;
+                $news->is_private = false;
+            } else
+            {
+                $news->is_private = true;
             }
 
-            $id = DB::table('news')->insertGetId($news[0]);
+            if(is_null($request->input('image')))
+            {
+                $news->image = '';
+            }
 
             // get image from request
             // if($request->hasFile('image')
@@ -55,8 +65,14 @@ class IndexController extends Controller
             //    $news['image'] = Storage::url($path);
             //}
 
-            $category_slug = $categories->getCategorySlugById($news[0]['category_id']);
-            return redirect()->route('news.one', [ 'category' => $category_slug, 'id' => $id]);
+            if($news->save())
+            {
+                $category_slug = $categories->getCategorySlugById($news->category_id);
+                return \redirect()
+                                ->route('news.one', [ 'categories' => $category_slug, 'id' => $news->id])
+                                ->with('success', 'Запись добавлена');
+            }
+            return back()->with('error', 'Не удалось добавить запись');
         }
 
         return view('admin.create', [
