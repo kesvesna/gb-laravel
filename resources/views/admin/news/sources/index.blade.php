@@ -14,7 +14,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
-                        <h2>Админка категорий</h2>
+                        <h2>Админка источников новостей</h2>
                         <a href="{{ route('admin.news.sources.create') }}" class="btn btn-outline-success" role="button" aria-pressed="true">Добавить источник новости</a>
                     </div>
                     <div class="card-body">
