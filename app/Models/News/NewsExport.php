@@ -10,9 +10,7 @@ class NewsExport implements FromCollection, WithHeadings
 {
     public function collection() // правильность реализации под вопросом, вывод новостей в файл работает
     {
-        $category = new Category();
-        $news = new News($category);
-        return collect($news->getNews());
+        return News::all();
     }
 
     public function headings(): array

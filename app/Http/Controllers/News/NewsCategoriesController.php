@@ -8,25 +8,24 @@ use App\Models\News\Category;
 
 class NewsCategoriesController extends Controller
 {
-    public function index(Category $categories): string
-    {
-        return view('news.index')->with('news', $categories->getCategories());
-    }
 
-    public function show($slug, Category $categories, News $news)
+    public function show($slug)
     {
-        $categories = $categories->getCategoriesBySlug($slug);
-        if($categories == null)
-        {
-            return redirect('news.index');
+        $category = Category::where('slug', $slug)->first();
+
+        if ($category == null) {
+            return redirect()->route('news.index');
         }
-        $news = $news->getByCategoriesId($categories[0]->id);
-        if($news != null){
-            return view('news.categories')->with([
+
+        $news = News::where('category_id', $category->id)->get();
+
+        if ($news != null) {
+            return view('news.category')->with([
                 'news' => $news,
-                'categories' => $categories
+                'categories' => $category
             ]);
         }
-        return redirect('404');
+
+        return redirect()->route('404');
     }
 }

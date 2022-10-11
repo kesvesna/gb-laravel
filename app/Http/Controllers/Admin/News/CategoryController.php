@@ -17,8 +17,7 @@ class CategoryController extends Controller
 
     public function create($id = null)
     {
-        if(!is_null($id))
-        {
+        if (!is_null($id)) {
             return view('admin.news.categories.create', [
                 'category' => Category::find($id)
             ]);
@@ -37,8 +36,7 @@ class CategoryController extends Controller
 
     public function store(Request $request, $category_id = null)
     {
-        if($request->isMethod(('post')))
-        {
+        if ($request->isMethod(('post'))) {
             $request->validate([
                 'name' => ['required', 'string', 'min:3', 'max:255'],
                 'slug' => ['required', 'string', 'min:3', 'max:50']
@@ -46,8 +44,7 @@ class CategoryController extends Controller
 
             $category = Category::find($category_id);
 
-            if(!$category)
-            {
+            if (!$category) {
                 $category = new Category();
             }
 
@@ -55,10 +52,9 @@ class CategoryController extends Controller
             $category->slug = $request->input('slug');
 
 
-            if($category->save())
-            {
+            if ($category->save()) {
                 return \redirect()
-                    ->route('admin.news.categories.view', [ 'id' => $category->id])
+                    ->route('admin.news.categories.view', ['id' => $category->id])
                     ->with('success', 'Запись добавлена');
             }
 
@@ -68,8 +64,7 @@ class CategoryController extends Controller
 
     public function delete($id = null)
     {
-        if(!is_null($id))
-        {
+        if (!is_null($id)) {
             Category::find($id)->delete();
         }
 

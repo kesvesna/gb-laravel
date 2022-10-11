@@ -19,28 +19,12 @@ class Category extends Model
         'slug'
     ];
 
-    protected $guarded = [
+    protected $hidden = [
         'id',
         'created_at',
         'updated_at',
         'deleted_at'
     ];
-
-    public function getCategories()
-    {
-        return Category::all();
-    }
-
-    public function getCategoriesBySlug($slug)
-    {
-        return DB::table('news_categories')->where('slug', '=', $slug)->get();
-    }
-
-    public function getCategorySlugById($id): string
-    {
-        $category = DB::table('news_categories')->find($id);
-        return $category->slug;
-    }
 
     public function news(): HasMany
     {

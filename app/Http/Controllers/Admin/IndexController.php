@@ -25,36 +25,32 @@ class IndexController extends Controller
     {
         return response()
             ->json($news->getNews())
-            ->header('Content-Disposition', 'attachment; filename="json.txt"', )
+            ->header('Content-Disposition', 'attachment; filename="json.txt"',)
             ->setEncodingOptions(JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
     }
 
     public function create(Request $request, Category $categories)
     {
-        if($request->isMethod(('post')))
-        {
+        if ($request->isMethod(('post'))) {
             $request->validate([
                 'title' => ['required', 'string', 'min:5', 'max:255'],
                 'description' => ['required', 'min:5']
-                ]);
+            ]);
             //$data = $request->only(['category_id', 'title', 'is_private', 'description']);
-            $news = new News($categories);
+            $news = new News();
             $news->title = $request->input('title');
             $news->description = $request->input('description');
             $news->short_description = $news->description;
             $news->category_id = $request->input('category_id');
             $news->source_id = 2;
 
-            if(is_null($request->input('is_private')))
-            {
+            if (is_null($request->input('is_private'))) {
                 $news->is_private = false;
-            } else
-            {
+            } else {
                 $news->is_private = true;
             }
 
-            if(is_null($request->input('image')))
-            {
+            if (is_null($request->input('image'))) {
                 $news->image = '';
             }
 
@@ -65,12 +61,11 @@ class IndexController extends Controller
             //    $news['image'] = Storage::url($path);
             //}
 
-            if($news->save())
-            {
+            if ($news->save()) {
                 $category_slug = $categories->getCategorySlugById($news->category_id);
                 return \redirect()
-                                ->route('news.one', [ 'categories' => $category_slug, 'id' => $news->id])
-                                ->with('success', 'Запись добавлена');
+                    ->route('news.one', ['categories' => $category_slug, 'id' => $news->id])
+                    ->with('success', 'Запись добавлена');
             }
             return back()->with('error', 'Не удалось добавить запись');
         }

@@ -13,7 +13,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Новости: {{ $categories[0]->name }}</div>
+                <div class="card-header">Новости: {{ $categories->name }}</div>
                 <div class="card-body">
                     @if ($news)
                         @if(!$news->is_private)

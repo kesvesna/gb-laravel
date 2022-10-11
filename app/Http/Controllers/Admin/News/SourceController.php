@@ -18,8 +18,7 @@ class SourceController extends Controller
 
     public function create($id = null)
     {
-        if(!is_null($id))
-        {
+        if (!is_null($id)) {
             return view('admin.news.sources.create', [
                 'source' => Source::find($id)
             ]);
@@ -38,8 +37,7 @@ class SourceController extends Controller
 
     public function store(Request $request, $source_id = null)
     {
-        if($request->isMethod(('post')))
-        {
+        if ($request->isMethod(('post'))) {
             $request->validate([
                 'name' => ['required', 'string', 'min:3', 'max:255'],
                 'slug' => ['required', 'string', 'min:3', 'max:50']
@@ -47,8 +45,7 @@ class SourceController extends Controller
 
             $source = Source::find($source_id);
 
-            if(!$source)
-            {
+            if (!$source) {
                 $source = new Source();
             }
 
@@ -56,10 +53,9 @@ class SourceController extends Controller
             $source->slug = $request->input('slug');
 
 
-            if($source->save())
-            {
+            if ($source->save()) {
                 return \redirect()
-                    ->route('admin.news.sources.view', [ 'id' => $source->id])
+                    ->route('admin.news.sources.view', ['id' => $source->id])
                     ->with('success', 'Запись добавлена');
             }
 
@@ -69,8 +65,7 @@ class SourceController extends Controller
 
     public function delete($id = null)
     {
-        if(!is_null($id))
-        {
+        if (!is_null($id)) {
             Source::find($id)->delete();
         }
 

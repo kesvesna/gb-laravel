@@ -36,6 +36,19 @@ Route::view('/vue', 'vue')->name('vue');
 Route::get('/save', [HomeController::class, 'save'])->name('save');
 
 //=========================================================================================================
+
+Route::prefix('news')
+    ->namespace('News')
+    ->group(function(){
+        Route::get('/export', [NewsController::class, 'export'])->name('export');
+        Route::get('/pdf', [NewsController::class, 'pdf'])->name('pdf');
+        Route::get('/', [NewsController::class, 'index'])->name('news');
+        Route::get('/{categories}/{id}', [NewsController::class, 'show'])->where('id', '[0-9]+')->name('news.one');
+        Route::get('/{categories}', [NewsCategoriesController::class, 'show'])->name('categories');
+    });
+
+//==============================================================================
+
 Route::name('admin.')
     ->prefix('admin')
     ->namespace('Admin')
@@ -68,6 +81,17 @@ Route::name('admin.')
                         Route::get('/delete/{id}', [AdminNewsCategoriesController::class, 'delete'])->name('delete');
                     });
 
+//                Route::resource('categories', AdminNewsCategoriesController::class)->only([
+//                    '/', '/create/{id?}', '/view/{id}', '/store/{id?}', '/deleted/{id}'
+//                ]);
+
+                //Route::resource('categories', AdminNewsCategoriesController::class)->shallow();
+
+//                Route::resource('categories', AdminNewsCategoriesController::class)->names([
+//                    '/' => 'categories.index',
+//                    '/create/{id?}' => 'categories.create'
+//                ]);
+
                 Route::name('sources.')
                     ->prefix('sources')
                     ->namespace('sources')
@@ -85,16 +109,7 @@ Route::name('admin.')
     });
 
 //=========================================================================================================
-Route::prefix('news')
-    ->group(function(){
-        Route::get('/export', [NewsController::class, 'export'])->name('export');
-        Route::get('/pdf', [NewsController::class, 'pdf'])->name('pdf');
-        Route::get('/', [NewsController::class, 'index'])->name('news');
-        Route::get('/{categories}/{id}', [NewsController::class, 'show'])->where('id', '[0-9]+')->name('news.one');
-        Route::get('/{categories}', [NewsCategoriesController::class, 'show'])->name('categories');
-    });
 
-//==============================================================================
 
 Route::view('/about','about')->name('about');
 

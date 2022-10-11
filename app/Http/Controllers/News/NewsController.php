@@ -16,36 +16,35 @@ use Illuminate\Support\Facades\DB;
 
 class NewsController extends Controller
 {
-    public function index(Category $categories)
+    public function index()
     {
-        return view('news.index')->with('categories', $categories->getCategories());
+        return view('news.index')->with('categories', Category::all());
     }
 
-    public function show($category_slug, $id, Category $categories, News $news)
+    public function show($category_slug, $id)
     {
-        $categories = $categories->getCategoriesBySlug($category_slug);
-        $news = $news->getNewsId($id);
-        if($news != null && $categories != null){
+
+        $category = Category::where('slug', $category_slug)->first();
+        $news = News::find($id);
+
+        if ($news != null && $category != null) {
             return view('news.one_new')->with([
                 'news' => $news,
-                'categories' => $categories
+                'categories' => $category
             ]);
         }
         return redirect('errors/404');
     }
 
-    public function export(News $news, Request $request)
+    public function export(Request $request)
     {
-        if($request->input('category_id') != '0')
-        {
-            $news = $news->getByCategoriesId($request->input('category_id'));
-        } else
-        {
-            $news = $news->getNews();
+        if ($request->input('category_id') != '0') {
+            $news = News::where('category_id', $request->input('category_id'))->get();
+        } else {
+            $news = News::all();
         }
 
-        switch ($request->input('export_file_type'))
-        {
+        switch ($request->input('export_file_type')) {
             case "pdf":
                 return $this->pdf($news);
             case "json":
@@ -58,7 +57,7 @@ class NewsController extends Controller
     private function pdf($news) // если в шаблоне шрифт не Dejavu Sans, то в файле вместо букв будут одни знаки вопроса
     {
         $pdf = Pdf::loadView('news.pdf_invoice', compact('news'))
-                        ->setPaper('a4', 'landscape');
+            ->setPaper('a4', 'landscape');
         return $pdf->download('invoice.pdf');
     }
 
@@ -83,8 +82,7 @@ class NewsController extends Controller
             $request->only(['category_id', 'title', 'is_private', 'description'])
         );
 
-        if($news)
-        {
+        if ($news) {
             return redirect()->route('news')->with('success', 'ЗАпись добавлена');
         }
 

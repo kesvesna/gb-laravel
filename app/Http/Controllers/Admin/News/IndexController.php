@@ -22,8 +22,7 @@ class IndexController extends Controller
 
     public function create($id = null)
     {
-        if(is_null($id))
-        {
+        if (is_null($id)) {
             return view('admin.news.create', [
                 'categories' => Category::all(),
                 'sources' => Source::all(),
@@ -46,8 +45,7 @@ class IndexController extends Controller
 
     public function store(Request $request, $new_id = null)
     {
-        if($request->isMethod(('post')))
-        {
+        if ($request->isMethod(('post'))) {
             $request->validate([
                 'title' => ['required', 'string', 'min:5', 'max:255'],
                 'description' => ['required', 'min:5'],
@@ -56,8 +54,7 @@ class IndexController extends Controller
 
             $news = News::find($new_id);
 
-            if(!$news)
-            {
+            if (!$news) {
                 $news = new News();
             }
 
@@ -67,24 +64,20 @@ class IndexController extends Controller
             $news->category_id = $request->input('category_id');
             $news->source_id = $request->input('source_id');;
 
-            if(is_null($request->input('is_private')))
-            {
+            if (is_null($request->input('is_private'))) {
                 $news->is_private = false;
-            } else
-            {
+            } else {
                 $news->is_private = true;
             }
 
-            if($request->hasFile('image'))
-            {
+            if ($request->hasFile('image')) {
                 $path = Storage::putFile('public', $request->file('image'));
                 $news->image = Storage::url($path);
             }
 
-            if($news->save())
-            {
+            if ($news->save()) {
                 return \redirect()
-                    ->route('admin.news.view', [ 'id' => $news->id])
+                    ->route('admin.news.view', ['id' => $news->id])
                     ->with('success', 'Запись добавлена');
             }
 
@@ -94,8 +87,7 @@ class IndexController extends Controller
 
     public function delete($id = null)
     {
-        if(!is_null($id))
-        {
+        if (!is_null($id)) {
             News::find($id)->delete();
         }
 
