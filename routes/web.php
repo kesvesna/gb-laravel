@@ -67,7 +67,8 @@ Route::name('admin.')
                 Route::get('/create/{id?}', [AdminNewsIndexController::class, 'create'])->name('create');
                 Route::get('/view/{id}', [AdminNewsIndexController::class, 'view'])->name('view');
                 Route::post('/store/{id?}', [AdminNewsIndexController::class, 'store'])->name('store');
-                Route::get('/delete/{id}', [AdminNewsIndexController::class, 'delete'])->name('delete');
+                //Route::get('/delete/{id}', [AdminNewsIndexController::class, 'delete'])->name('delete');
+                Route::delete('/delete/{id}', [AdminNewsIndexController::class, 'delete'])->name('delete');
 
 
                 Route::name('categories.')

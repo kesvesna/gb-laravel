@@ -67,7 +67,7 @@
                     const id = e.getAttribute("rel");
                     if(confirm(`Удалить запись с ID: ${id}`))
                     {
-                        send(`/admin/news/categories/delete/${id}`).then(()=>{
+                        send(`/admin/news/delete/${id}`).then(()=>{
                             location.reload();
                         });
                     }

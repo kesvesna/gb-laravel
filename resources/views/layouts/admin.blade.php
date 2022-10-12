@@ -13,6 +13,5 @@
 <body>
 @yield('menu')
 @yield('content')
-@stack('js')
 </body>
 </html>
