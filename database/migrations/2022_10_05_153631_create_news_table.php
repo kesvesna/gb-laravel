@@ -38,7 +38,7 @@ return new class extends Migration
 
             $table->string('image')->default('');
             $table->string('title')->comment('Заголовок новости');
-            $table->boolean('is_private')->comment('Признак того, что новость приватная, только для зарегистрированных пользователей');
+            $table->boolean('is_private')->default(false)->comment('Признак того, что новость приватная, только для зарегистрированных пользователей');
             $table->text('short_description')->comment('Краткое описание новости');
             $table->text('description')->comment('Вся новость');
             $table->timestamps();

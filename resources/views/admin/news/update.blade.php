@@ -14,7 +14,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h2>Админка создания новости</h2>
+                        <h2>Админка {{ $new->id? 'редактирования' : 'создания' }} новости {{ $new->id? 'с ID: ' . $new->id : '' }}</h2>
                     </div>
                     <div class="card-body">
                         <form method="POST" enctype="multipart/form-data" action="{{ route('admin.news.store', ['id' => $new->id]) }}">
@@ -63,14 +63,14 @@
                                 <textarea type="text" class="form-control" id="inputDescription" name="description">{{ $new->description }}</textarea>
                             </div>
                             <div class="form-check mb-3">
-                                <input {{ $new->is_private? 'checked' : '' }} id="newsPrivate" name="is_private" type="checkbox" value="1" class="form-check-input">
+                                <input @if(old('isPrivate') == '1') checked @endif id="newsPrivate" name="is_private" type="checkbox" value="1" class="form-check-input">
                                 <label for="newsPrivate">Приватная новость</label>
                             </div>
                             @if($new->image)
-                            <div class="mb-3">
-                                <label for="imageExist" class="form-label">Существующий файл</label>
-                                <input class="form-control" type="text" id="imageExist" readonly placeholder="{{ $new->image }}">
-                            </div>
+                                <div class="mb-3">
+                                    <label for="newsExistFile">Существующий файл</label>
+                                    <input class="form-control" type="text" readonly placeholder="{{ $new->image }}" id="newsExistFile">
+                                </div>
                             @endif
                             <div class="mb-3">
                                 <label for="image" class="form-label">Выберите файл ...</label>

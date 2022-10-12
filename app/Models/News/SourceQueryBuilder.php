@@ -4,37 +4,37 @@ declare(strict_types=1);
 
 namespace App\Models\News;
 
+use App\Models\News\Source;
 use Illuminate\Database\Eloquent\Builder;
-use App\Models\News\Category;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-final class CategoryQueryBuilder
+final class SourceQueryBuilder
 {
     private Builder $model;
 
     public function __construct()
     {
-        $this->model = Category::query();
+        $this->model = Source::query();
     }
 
-    public function getCategories(): Collection
+    public function getSources(): Collection
     {
         return $this->model->get();
     }
 
-    public function getCategoryById(int $id): object
+    public function getSourceById(int $id): object
     {
         return $this->model->findOrFail($id);
     }
 
-    public function create(array $data): Category
+    public function create(array $data): Source
     {
-        return Category::create($data);
+        return Source::create($data);
     }
 
-    public function update(Category $category, array $data): bool
+    public function update(Source $category, array $data): bool
     {
         return $category->fill($data)->save();
     }

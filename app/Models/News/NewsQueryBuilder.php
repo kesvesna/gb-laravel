@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models\News;
 
-use FontLib\TrueType\Collection;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\News\News;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,12 +18,11 @@ final class NewsQueryBuilder
         $this->model = News::query();
     }
 
-    public function getAllNews(): LengthAwarePaginator
+    public function getAllNews(int $paginate_pages): LengthAwarePaginator
     {
         return $this->model
                     ->with('category')
-                    ->with('author')
-                    ->paginate();
+                    ->paginate($paginate_pages);
     }
 
     public function getNewsByCategory(int $category_id, bool $isAdmin = false): LengthAwarePaginator
@@ -34,14 +32,12 @@ final class NewsQueryBuilder
             return $this->model
                         ->where('category_id', $category_id)
                         ->with('category')
-                        ->with('author')
                         ->paginate();
         }
 
         return $this->model
                     ->where('category_id', $category_id)
                     ->with('category')
-                    ->with('author')
                     ->paginate(); // only active news for other users
     }
 
@@ -49,7 +45,6 @@ final class NewsQueryBuilder
     {
         return $this->model
                     ->with('category')
-                    ->with('author')
                     ->findOrFail($id);
     }
 
