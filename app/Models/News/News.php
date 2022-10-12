@@ -2,6 +2,7 @@
 
 namespace App\Models\News;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -34,5 +35,10 @@ class News extends Model
     }
 
     //TODO scopes, mutators
+
+    public function scopeStatus(Builder $query): Builder
+    {
+        return $query;
+    }
 
 }

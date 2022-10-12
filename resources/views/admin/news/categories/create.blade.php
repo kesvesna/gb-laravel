@@ -17,6 +17,7 @@
                         <h2>Админка {{ $category->id? 'редактирования' : 'создания' }} категории {{ $category->id? 'с ID: ' . $category->id : '' }}</h2>
                     </div>
                     <div class="card-body">
+                        @include('inc.message')
                         <form method="POST" action="{{ route('admin.news.categories.store', ['id' => $category->id]) }}">
                             @csrf
                             <div class="mb-3">

@@ -3,11 +3,16 @@
 namespace App\Http\Controllers\Admin\News;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\News\CreateRequest;
+use App\Http\Requests\News\UpdateRequest;
 use App\Models\News\Category;
 use App\Models\News\News;
+use App\Models\News\NewsQueryBuilder;
 use App\Models\News\Source;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class IndexController extends Controller
@@ -43,26 +48,20 @@ class IndexController extends Controller
         ]);
     }
 
-    public function store(Request $request, $new_id = null)
+    /**
+     * @param CreateRequest $request
+     * @param $new_id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(CreateRequest $request, NewsQueryBuilder $builder, $new_id = null)
     {
         if ($request->isMethod(('post'))) {
-            $request->validate([
-                'title' => ['required', 'string', 'min:5', 'max:255'],
-                'description' => ['required', 'min:5'],
-                'short_description' => ['required', 'min:5']
-            ]);
 
             $news = News::find($new_id);
 
             if (!$news) {
-                $news = new News();
+                $news = $builder->create($request->validated());
             }
-
-            $news->title = $request->input('title');
-            $news->description = $request->input('description');
-            $news->short_description = $request->input('short_description');
-            $news->category_id = $request->input('category_id');
-            $news->source_id = $request->input('source_id');;
 
             if (is_null($request->input('is_private'))) {
                 $news->is_private = false;
@@ -85,15 +84,20 @@ class IndexController extends Controller
         return back()->with('error', 'Не удалось добавить запись');
     }
 
-    public function delete($id = null)
+    public function delete($id = null): JsonResponse
     {
-        if (!is_null($id)) {
-            News::find($id)->delete();
+        try {
+                $deleted = News::find($id)->delete();
+                if($deleted)
+                {
+                    return \response()->json('ok', 200);
+                }
+                return \response()->json('error', 400);
+        } catch (\Exception $e)
+        {
+            Log::error('New with ID: ' . $id . ' delete error');
+            //Log::error($e->getMessage());
+            return \response()->json('error', 400);
         }
-
-        return redirect()->route('admin.news.index', [
-            'news' => News::query()->with('category')->paginate(5),
-            'categories' => Category::all()
-        ]);
     }
 }

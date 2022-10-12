@@ -79,13 +79,19 @@ class NewsController extends Controller
     public function store(Request $request, NewsQueryBuilder $builder)
     {
         $news = $builder->create(
-            $request->only(['category_id', 'title', 'is_private', 'description'])
+            $request->validated()
         );
 
+        // if($builder->update($news, $request->validated())
+        //{
+            //return redirect()->route('admin.news.index')
+            //                    ->with('success', __('messages.admin.news.update.success'));
+        //}
+
         if ($news) {
-            return redirect()->route('news')->with('success', 'ЗАпись добавлена');
+            return redirect()->route('news')->with('success', __('messages.admin.news.create.success'));
         }
 
-        return redirect()->route('admin.index')->with('error', 'ЗАпись не добавлена');
+        return redirect()->route('admin.index')->with('error', __('messages.admin.news.create.fail'));
     }
 }

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin\News;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\News\Categories\CreateCategoryRequest;
 use App\Models\News\Category;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -17,6 +19,7 @@ class CategoryController extends Controller
 
     public function create($id = null)
     {
+
         if (!is_null($id)) {
             return view('admin.news.categories.create', [
                 'category' => Category::find($id)
@@ -34,23 +37,17 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function store(Request $request, $category_id = null)
+    public function store(CreateCategoryRequest $request, $category_id = null): RedirectResponse
     {
         if ($request->isMethod(('post'))) {
-            $request->validate([
-                'name' => ['required', 'string', 'min:3', 'max:255'],
-                'slug' => ['required', 'string', 'min:3', 'max:50']
-            ]);
 
-            $category = Category::find($category_id);
+            // for create new category
+            $category = new Category(
+                $request->validated()
+            );
 
-            if (!$category) {
-                $category = new Category();
-            }
-
-            $category->name = $request->input('name');
-            $category->slug = $request->input('slug');
-
+            //for update category
+            //$category = $category->fill($request->validated());
 
             if ($category->save()) {
                 return \redirect()

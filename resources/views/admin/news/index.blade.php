@@ -40,7 +40,8 @@
                                         <div>
                                             <a href="{{ route('admin.news.view', [ 'id' => $new->id]) }}"><img src="../../assets/svg/view.svg" alt="Edit image" width="20" height="20" title="Просмотр" style="margin: 0px 10px 0px 0px;"></a>
                                             <a href="{{ route('admin.news.create', [ 'id' => $new->id]) }}"><img src="../../assets/svg/edit.svg" alt="Edit image" style="margin: 0px 10px 0px 0px;" width="20" height="20" title="Редактировать"></a>
-                                            <a href="{{ route('admin.news.delete', [ 'id' => $new->id]) }}"><img src="../../assets/svg/delete.svg" alt="Edit image" width="20" height="20" title="Удалить"></a>
+{{--                                            <a href="{{ route('admin.news.delete', [ 'id' => $new->id]) }}"><img src="../../assets/svg/delete.svg" alt="Edit image" width="20" height="20" title="Удалить"></a>--}}
+                                            <a href="javascript:;" rel="{{ $new->id }}" class="delete"><img src="../../assets/svg/delete.svg" alt="Edit image" width="20" height="20" title="Удалить"></a>
                                         </div>
                                     </td>
                                 </tr>
@@ -57,3 +58,33 @@
     </div>
 @endsection
 
+@push('js')
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function(){
+            let elements = document.querySelectorAll(".delete");
+            elements.forEach(function(e, k){
+                e.addEventListener("click", function(){
+                    const id = e.getAttribute("rel");
+                    if(confirm(`Удалить запись с ID: ${id}`))
+                    {
+                        send(`/admin/news/categories/delete/${id}`).then(()=>{
+                            location.reload();
+                        });
+                    }
+                });
+            })
+        });
+
+        async function send(url)
+        {
+            let response = await fetch(url, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
+            });
+            let result = await response.json();
+            return result.ok;
+        }
+    </script>
+@endpush

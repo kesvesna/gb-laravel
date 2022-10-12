@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Models\News;
 
-
-
 use FontLib\TrueType\Collection;
 use Illuminate\Database\Eloquent\Builder;
+use App\Models\News\Category;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 final class CategoryQueryBuilder
 {
