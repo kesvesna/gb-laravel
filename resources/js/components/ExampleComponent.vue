@@ -14,9 +14,9 @@
 </template>
 
 <script>
-    export default {
-        mounted() {
-            console.log('Example vue component mounted')
-        }
+export default {
+    mounted() {
+        console.log('Example vue component mounted')
     }
+}
 </script>

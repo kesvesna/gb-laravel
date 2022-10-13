@@ -17,7 +17,8 @@
                         <h2>Админка создания новости</h2>
                     </div>
                     <div class="card-body">
-                        <form method="POST" enctype="multipart/form-data" action="{{ route('admin.news.store', ['id' => $new->id]) }}">
+                        <form method="POST" enctype="multipart/form-data"
+                              action="{{ route('admin.news.store', ['id' => $new->id]) }}">
                             @csrf
                             <div class="form-group mb-3">
                                 @include('inc.message')
@@ -57,28 +58,34 @@
                             </div>
                             <div class="mb-3">
                                 <label for="inputShortDescription" class="form-label">Краткое описание новости</label>
-                                <textarea type="text" class="form-control" id="inputShortDescription" name="short_description">{{ $new->short_description }}</textarea>
+                                <textarea type="text" class="form-control" id="inputShortDescription"
+                                          name="short_description">{{ $new->short_description }}</textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="inputDescription" class="form-label">Текст новости</label>
-                                <textarea type="text" class="form-control" id="inputDescription" name="description">{{ $new->description }}</textarea>
+                                <textarea type="text" class="form-control" id="inputDescription"
+                                          name="description">{{ $new->description }}</textarea>
                             </div>
                             <div class="form-check mb-3">
-                                <input {{ $new->is_private? 'checked' : '' }} id="newsPrivate" name="is_private" type="checkbox" value="1" class="form-check-input">
+                                <input {{ $new->is_private? 'checked' : '' }} id="newsPrivate" name="is_private"
+                                       type="checkbox" value="1" class="form-check-input">
                                 <label for="newsPrivate">Приватная новость</label>
                             </div>
                             @if($new->image)
-                            <div class="mb-3">
-                                <label for="imageExist" class="form-label">Существующий файл</label>
-                                <input class="form-control" type="text" id="imageExist" readonly placeholder="{{ $new->image }}">
-                            </div>
+                                <div class="mb-3">
+                                    <label for="imageExist" class="form-label">Существующий файл</label>
+                                    <input class="form-control" type="text" id="imageExist" readonly
+                                           placeholder="{{ $new->image }}">
+                                </div>
                             @endif
                             <div class="mb-3">
                                 <label for="image" class="form-label">Выберите файл ...</label>
                                 <input class="form-control" type="file" id="image" name="image">
                             </div>
-                            <button type="submit" class="btn btn-primary" style="margin: 0px 20px 0px 0px;">Сохранить</button>
-                            <a href="{{ URL::previous() }}" class="btn btn-outline-success" role="button" aria-pressed="true">Назад</a>
+                            <button type="submit" class="btn btn-primary" style="margin: 0px 20px 0px 0px;">Сохранить
+                            </button>
+                            <a href="{{ URL::previous() }}" class="btn btn-outline-success" role="button"
+                               aria-pressed="true">Назад</a>
                         </form>
                     </div>
                 </div>

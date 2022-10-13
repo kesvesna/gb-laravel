@@ -25,8 +25,11 @@
                         <hr>
                         <p><b>Slug:</b> {{ $category->slug }}</p>
                         <hr>
-                        <a href="{{ route('admin.news.categories.create', ['id' => $category->id]) }}" class="btn btn-outline-danger" role="button" aria-pressed="true" style="margin: 0px 20px 0px 0px;">Редактировать</a>
-                        <a href="{{ route('admin.news.categories.index') }}" class="btn btn-outline-success" role="button" aria-pressed="true">Все категории</a>
+                        <a href="{{ route('admin.news.categories.create', ['id' => $category->id]) }}"
+                           class="btn btn-outline-danger" role="button" aria-pressed="true"
+                           style="margin: 0px 20px 0px 0px;">Редактировать</a>
+                        <a href="{{ route('admin.news.categories.index') }}" class="btn btn-outline-success"
+                           role="button" aria-pressed="true">Все категории</a>
                     </div>
                 </div>
             </div>

@@ -33,10 +33,14 @@
                         <hr>
                         <p><b>Приватная:</b> {{ $new->is_private? 'Да' : 'Нет'}}</p>
                         <hr>
-                        <p><b>Картинка:</b><a href="{{ $new->image? $new->image : '#' }}"> {{ $new->image? $new->image : 'Отсутствует'}}</a></p>
+                        <p><b>Картинка:</b><a
+                                href="{{ $new->image? $new->image : '#' }}"> {{ $new->image? $new->image : 'Отсутствует'}}</a>
+                        </p>
                         <hr>
-                        <a href="{{ route('admin.news.create', ['id' => $new->id]) }}" class="btn btn-outline-danger" role="button" aria-pressed="true" style="margin: 0px 20px 0px 0px;">Редактировать</a>
-                        <a href="{{ route('admin.news.index') }}" class="btn btn-outline-success" role="button" aria-pressed="true">Все новости</a>
+                        <a href="{{ route('admin.news.create', ['id' => $new->id]) }}" class="btn btn-outline-danger"
+                           role="button" aria-pressed="true" style="margin: 0px 20px 0px 0px;">Редактировать</a>
+                        <a href="{{ route('admin.news.index') }}" class="btn btn-outline-success" role="button"
+                           aria-pressed="true">Все новости</a>
                     </div>
                 </div>
             </div>

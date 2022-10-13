@@ -21,31 +21,30 @@ final class NewsQueryBuilder
     public function getAllNews(int $paginate): LengthAwarePaginator
     {
         return $this->model
-                    ->with('category')
-                    ->paginate($paginate);
+            ->with('category')
+            ->paginate($paginate);
     }
 
     public function getNewsByCategory(int $category_id, bool $isAdmin = false): LengthAwarePaginator
     {
-        if($isAdmin)
-        {
+        if ($isAdmin) {
             return $this->model
-                        ->where('category_id', $category_id)
-                        ->with('category')
-                        ->paginate();
+                ->where('category_id', $category_id)
+                ->with('category')
+                ->paginate();
         }
 
         return $this->model
-                    ->where('category_id', $category_id)
-                    ->with('category')
-                    ->paginate(); // only active news for other users
+            ->where('category_id', $category_id)
+            ->with('category')
+            ->paginate(); // only active news for other users
     }
 
     public function getNewsById(int $id): object
     {
         return $this->model
-                    ->with('category')
-                    ->findOrFail($id);
+            ->with('category')
+            ->findOrFail($id);
     }
 
     public function create(array $data): News|bool

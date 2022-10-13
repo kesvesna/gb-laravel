@@ -14,9 +14,11 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h2>Админка {{ $source->id? 'редактирования' : 'создания' }} источника новости {{ $source->id? 'с ID: ' . $source->id : '' }}</h2>
+                        <h2>Админка {{ $source->id? 'редактирования' : 'создания' }} источника
+                            новости {{ $source->id? 'с ID: ' . $source->id : '' }}</h2>
                     </div>
                     <div class="card-body">
+                        @include('inc.message')
                         <form method="POST" action="{{ route('admin.news.sources.store', ['id' => $source->id]) }}">
                             @csrf
                             <div class="mb-3">
@@ -41,8 +43,10 @@
                                     value="{{ $source->slug }}"
                                 >
                             </div>
-                            <button type="submit" class="btn btn-primary" style="margin: 0px 20px 0px 0px;">Сохранить</button>
-                            <a href="{{ URL::previous() }}" class="btn btn-outline-success" role="button" aria-pressed="true">Назад</a>
+                            <button type="submit" class="btn btn-primary" style="margin: 0px 20px 0px 0px;">Сохранить
+                            </button>
+                            <a href="{{ URL::previous() }}" class="btn btn-outline-success" role="button"
+                               aria-pressed="true">Назад</a>
                         </form>
                     </div>
                 </div>

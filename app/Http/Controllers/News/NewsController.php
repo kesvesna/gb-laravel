@@ -84,8 +84,8 @@ class NewsController extends Controller
 
         // if($builder->update($news, $request->validated())
         //{
-            //return redirect()->route('admin.news.index')
-            //                    ->with('success', __('messages.admin.news.update.success'));
+        //return redirect()->route('admin.news.index')
+        //                    ->with('success', __('messages.admin.news.update.success'));
         //}
 
         if ($news) {

@@ -3,24 +3,25 @@
 namespace App\Http\Controllers\Admin\News;
 
 use App\Http\Controllers\Controller;
-use App\Models\News\Category;
+use App\Http\Requests\News\Sources\CreateSourceRequest;
 use App\Models\News\Source;
+use App\Models\News\SourceQueryBuilder;
 use Illuminate\Http\Request;
 
 class SourceController extends Controller
 {
-    public function index()
+    public function index(SourceQueryBuilder $builder)
     {
         return view('admin.news.sources.index', [
-            'sources' => Source::all()
+            'sources' => $builder->getSources(),
         ]);
     }
 
-    public function create($id = null)
+    public function create(SourceQueryBuilder $builder, $id = null)
     {
         if (!is_null($id)) {
             return view('admin.news.sources.create', [
-                'source' => Source::find($id)
+                'source' => $builder->getSourceById($id),
             ]);
         }
         return view('admin.news.sources.create', [
@@ -28,30 +29,23 @@ class SourceController extends Controller
         ]);
     }
 
-    public function view($id)
+    public function view(SourceQueryBuilder $builder, $id)
     {
         return view('admin.news.sources.view', [
-            'source' => Source::find($id)
+            'source' => $builder->getSourceById($id)
         ]);
     }
 
-    public function store(Request $request, $source_id = null)
+    public function store(CreateSourceRequest $request, SourceQueryBuilder $builder, $source_id = null)
     {
         if ($request->isMethod(('post'))) {
-            $request->validate([
-                'name' => ['required', 'string', 'min:3', 'max:255'],
-                'slug' => ['required', 'string', 'min:3', 'max:50']
-            ]);
 
-            $source = Source::find($source_id);
-
-            if (!$source) {
-                $source = new Source();
+            if (is_null($source_id)) {
+                $source = $builder->create($request->validated());
+            } else {
+                $source = $builder->getSourceById($source_id);
+                $source = $source->fill($request->validated());
             }
-
-            $source->name = $request->input('name');
-            $source->slug = $request->input('slug');
-
 
             if ($source->save()) {
                 return \redirect()
@@ -63,14 +57,14 @@ class SourceController extends Controller
         return back()->with('error', 'Не удалось добавить запись');
     }
 
-    public function delete($id = null)
+    public function delete(SourceQueryBuilder $builder, $id = null)
     {
         if (!is_null($id)) {
-            Source::find($id)->delete();
+            $builder->delete($id);
         }
 
         return redirect()->route('admin.news.sources.index', [
-            'sources' => Source::all()
+            'sources' => $builder->getSources(),
         ]);
     }
 }

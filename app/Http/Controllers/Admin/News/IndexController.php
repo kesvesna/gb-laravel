@@ -29,16 +29,16 @@ class IndexController extends Controller
     }
 
     public function create(
-        NewsQueryBuilder $news_builder,
+        NewsQueryBuilder     $news_builder,
         CategoryQueryBuilder $category_builder,
-        SourceQueryBuilder $source_builder,
-        News $news,
-        $new_id = null
+        SourceQueryBuilder   $source_builder,
+        News                 $news,
+                             $new_id = null
     )
     {
 
         return view('admin.news.create', [
-            'new' => $new_id? $news_builder->getNewsById($new_id) : $news,
+            'new' => $new_id ? $news_builder->getNewsById($new_id) : $news,
             'categories' => $category_builder->getCategories(),
             'sources' => $source_builder->getSources()
         ]);
@@ -60,15 +60,13 @@ class IndexController extends Controller
     {
         if ($request->isMethod(('post'))) {
 
-            if($request->input('is_private') != "1")
-            {
+            if ($request->input('is_private') != "1") {
                 $request->request->add(['is_private' => "0"]);
             }
 
             if (is_null($new_id)) {
                 $news = $builder->create($request->validated());
-            } else
-            {
+            } else {
                 $news = $builder->getNewsById($new_id);
                 $news->fill($request->validated() + ['is_private' => $request->input('is_private')]);
             }
@@ -91,14 +89,12 @@ class IndexController extends Controller
     public function delete($id = null): JsonResponse
     {
         try {
-                $deleted = News::find($id)->delete();
-                if($deleted)
-                {
-                    return \response()->json('ok', 200);
-                }
-                return \response()->json('error', 400);
-        } catch (\Exception $e)
-        {
+            $deleted = News::find($id)->delete();
+            if ($deleted) {
+                return \response()->json('ok', 200);
+            }
+            return \response()->json('error', 400);
+        } catch (\Exception $e) {
             Log::error('New with ID: ' . $id . ' delete error');
             //Log::error($e->getMessage());
             return \response()->json('error', 400);

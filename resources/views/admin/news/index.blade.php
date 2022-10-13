@@ -15,13 +15,14 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
                         <h2>Админка новостей</h2>
-                        <a href="{{ route('admin.news.create') }}" class="btn btn-outline-success" role="button" aria-pressed="true">Добавить новость</a>
+                        <a href="{{ route('admin.news.create') }}" class="btn btn-outline-success" role="button"
+                           aria-pressed="true">Добавить новость</a>
                     </div>
                     <div class="card-body">
                         <table class="table table-striped">
                             <thead>
                             <tr>
-                               <th scope="col">ID</th>
+                                <th scope="col">ID</th>
                                 <th scope="col">Дата создания</th>
                                 <th scope="col">Категория</th>
                                 <th scope="col">Заголовок</th>
@@ -38,10 +39,17 @@
                                     <td class="d-flex justify-content-between">
                                         {{ $new->short_description }}
                                         <div>
-                                            <a href="{{ route('admin.news.view', [ 'id' => $new->id]) }}"><img src="../../assets/svg/view.svg" alt="Edit image" width="20" height="20" title="Просмотр" style="margin: 0px 10px 0px 0px;"></a>
-                                            <a href="{{ route('admin.news.create', [ 'id' => $new->id]) }}"><img src="../../assets/svg/edit.svg" alt="Edit image" style="margin: 0px 10px 0px 0px;" width="20" height="20" title="Редактировать"></a>
-{{--                                            <a href="{{ route('admin.news.delete', [ 'id' => $new->id]) }}"><img src="../../assets/svg/delete.svg" alt="Edit image" width="20" height="20" title="Удалить"></a>--}}
-                                            <a href="javascript:;" rel="{{ $new->id }}" class="delete"><img src="../../assets/svg/delete.svg" alt="Edit image" width="20" height="20" title="Удалить"></a>
+                                            <a href="{{ route('admin.news.view', [ 'id' => $new->id]) }}"><img
+                                                    src="../../assets/svg/view.svg" alt="Edit image" width="20"
+                                                    height="20" title="Просмотр" style="margin: 0px 10px 0px 0px;"></a>
+                                            <a href="{{ route('admin.news.create', [ 'id' => $new->id]) }}"><img
+                                                    src="../../assets/svg/edit.svg" alt="Edit image"
+                                                    style="margin: 0px 10px 0px 0px;" width="20" height="20"
+                                                    title="Редактировать"></a>
+                                            {{--                                            <a href="{{ route('admin.news.delete', [ 'id' => $new->id]) }}"><img src="../../assets/svg/delete.svg" alt="Edit image" width="20" height="20" title="Удалить"></a>--}}
+                                            <a href="javascript:;" rel="{{ $new->id }}" class="delete"><img
+                                                    src="../../assets/svg/delete.svg" alt="Edit image" width="20"
+                                                    height="20" title="Удалить"></a>
                                         </div>
                                     </td>
                                 </tr>
@@ -60,14 +68,13 @@
 
 @push('js')
     <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", function(){
+        document.addEventListener("DOMContentLoaded", function () {
             let elements = document.querySelectorAll(".delete");
-            elements.forEach(function(e, k){
-                e.addEventListener("click", function(){
+            elements.forEach(function (e, k) {
+                e.addEventListener("click", function () {
                     const id = e.getAttribute("rel");
-                    if(confirm(`Удалить запись с ID: ${id}`))
-                    {
-                        send(`/admin/news/delete/${id}`).then(()=>{
+                    if (confirm(`Удалить запись с ID: ${id}`)) {
+                        send(`/admin/news/delete/${id}`).then(() => {
                             location.reload();
                         });
                     }
@@ -75,8 +82,7 @@
             })
         });
 
-        async function send(url)
-        {
+        async function send(url) {
             let response = await fetch(url, {
                 method: 'DELETE',
                 headers: {

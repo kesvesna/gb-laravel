@@ -20,9 +20,9 @@
                                 <label for="newsCategory">Категории новостей</label>
                                 <select name="category_id" id="newsCategory" class="form-control">
                                     @forelse($categories as $category)
-                                       <option @if($category->id == old('categories')) selected @endif
-                                                value="{{ $category->id }}">{{ $category->name }}
-                                       </option>
+                                        <option @if($category->id == old('categories')) selected @endif
+                                        value="{{ $category->id }}">{{ $category->name }}
+                                        </option>
                                     @empty
                                         <option value="0">Нет категорий</option>
                                     @endforelse
@@ -41,10 +41,12 @@
                             </div>
                             <div class="mb-3">
                                 <label for="inputDescription" class="form-label">Текст новости</label>
-                                <textarea type="text" class="form-control" id="inputDescription" name="description">{{ old('text') }}</textarea>
+                                <textarea type="text" class="form-control" id="inputDescription"
+                                          name="description">{{ old('text') }}</textarea>
                             </div>
                             <div class="form-check mb-2">
-                                <input @if(old('isPrivate') === '1') checked @endif id="newsPrivate" name="is_private" type="checkbox" value="1" class="form-check-input">
+                                <input @if(old('isPrivate') === '1') checked @endif id="newsPrivate" name="is_private"
+                                       type="checkbox" value="1" class="form-check-input">
                                 <label for="newsPrivate">Приватная новость</label>
                             </div>
                             <button type="submit" class="btn btn-primary">Сохранить</button>

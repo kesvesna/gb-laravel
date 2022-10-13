@@ -31,7 +31,6 @@ class CreateCategoryRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'unique:news_categories,name', 'min:2', 'max:255'],
             'slug' => ['required', 'string', 'unique:news_categories,slug', 'min:2', 'max:255'],
-
         ];
     }
 
@@ -42,17 +41,17 @@ class CreateCategoryRequest extends FormRequest
      */
     //public function messages(): array
     //{
-        // если этих данных не будет,
-        // то будут браться данные из файла validation.php
-        //return [
+    // если этих данных не будет,
+    // то будут браться данные из файла validation.php
+    //return [
 //            'title.required' => 'A title is required',
 //            'category_id.required' => 'A category is required',
 //            'source_id.required' => 'A source is required',
 //            'min' => [
 //                'string' => 'Поле :attribute должно быть не меньше :min'
-          //  ]
-        //];
-   // }
+    //  ]
+    //];
+    // }
 
     /**
      * Prepare the data for validation.

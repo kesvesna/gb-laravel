@@ -25,8 +25,11 @@
                         <hr>
                         <p><b>Slug:</b> {{ $source->slug }}</p>
                         <hr>
-                        <a href="{{ route('admin.news.sources.create', ['id' => $source->id]) }}" class="btn btn-outline-danger" role="button" aria-pressed="true" style="margin: 0px 20px 0px 0px;">Редактировать</a>
-                        <a href="{{ route('admin.news.sources.index') }}" class="btn btn-outline-success" role="button" aria-pressed="true">Все источники</a>
+                        <a href="{{ route('admin.news.sources.create', ['id' => $source->id]) }}"
+                           class="btn btn-outline-danger" role="button" aria-pressed="true"
+                           style="margin: 0px 20px 0px 0px;">Редактировать</a>
+                        <a href="{{ route('admin.news.sources.index') }}" class="btn btn-outline-success" role="button"
+                           aria-pressed="true">Все источники</a>
                     </div>
                 </div>
             </div>

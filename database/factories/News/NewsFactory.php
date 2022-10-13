@@ -17,8 +17,8 @@ class NewsFactory extends Factory
     public function definition(): array
     {
         return [
-            'category_id' => fake()->numberBetween(1,5),
-            'source_id' => fake()->numberBetween(1,5),
+            'category_id' => fake()->numberBetween(1, 5),
+            'source_id' => fake()->numberBetween(1, 5),
             'title' => fake()->jobTitle(),
             'short_description' => fake()->realText(50),
             'description' => fake()->realText(200),

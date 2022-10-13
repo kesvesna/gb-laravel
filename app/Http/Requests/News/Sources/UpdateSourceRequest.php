@@ -24,7 +24,7 @@ class UpdateSourceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required|string|unique:news_sources,title|min:2|max:255'],
+            'title' => ['required|string|unique:news_sources,name|min:2|max:255'],
             'slug' => ['required|string|unique:news_sources,slug|min:2|max:255'],
         ];
     }

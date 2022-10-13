@@ -18,38 +18,36 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function create($id = null)
+    public function create(CategoryQueryBuilder $builder, $id = null)
     {
 
         if (!is_null($id)) {
             return view('admin.news.categories.create', [
-                'category' => Category::find($id)
+                'category' => $builder->getCategoryById($id),
             ]);
         }
         return view('admin.news.categories.create', [
-            'category' => new Category()
+            'category' => new Category(),
         ]);
     }
 
-    public function view($id)
+    public function view(CategoryQueryBuilder $builder, $id)
     {
         return view('admin.news.categories.view', [
-            'category' => Category::find($id)
+            'category' => $builder->getCategoryById($id),
         ]);
     }
 
-    public function store(CreateCategoryRequest $request, CategoryQueryBuilder $builder, $category_id = null): RedirectResponse
+    public function store(CreateCategoryRequest $request, CategoryQueryBuilder $builder, Category $category, $category_id = null): RedirectResponse
     {
         if ($request->isMethod(('post'))) {
 
-            // for create new category
-            $category = $builder->create($request->validated());
-//            $category = new Category(
-//                $request->validated()
-//            );
-
-            //for update category
-            //$category = $category->fill($request->validated());
+            if (is_null($category_id)) {
+                $category = $builder->create($request->validated());
+            } else {
+                $category = $builder->getCategoryById($category_id);
+                $category = $category->fill($request->validated());
+            }
 
             if ($category->save()) {
                 return \redirect()
@@ -61,14 +59,14 @@ class CategoryController extends Controller
         return back()->with('error', 'Не удалось добавить запись');
     }
 
-    public function delete($id = null)
+    public function delete(CategoryQueryBuilder $builder, $id = null)
     {
         if (!is_null($id)) {
-            Category::find($id)->delete();
+            $builder->delete($id);
         }
 
         return redirect()->route('admin.news.categories.index', [
-            'categories' => Category::all()
+            'categories' => $builder->getCategories(),
         ]);
     }
 }

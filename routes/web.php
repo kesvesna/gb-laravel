@@ -39,7 +39,7 @@ Route::get('/save', [HomeController::class, 'save'])->name('save');
 
 Route::prefix('news')
     ->namespace('News')
-    ->group(function(){
+    ->group(function () {
         Route::get('/export', [NewsController::class, 'export'])->name('export');
         Route::get('/pdf', [NewsController::class, 'pdf'])->name('pdf');
         Route::get('/', [NewsController::class, 'index'])->name('news');
@@ -52,7 +52,7 @@ Route::prefix('news')
 Route::name('admin.')
     ->prefix('admin')
     ->namespace('Admin')
-    ->group(function(){
+    ->group(function () {
 
         Route::get('/', [AdminIndexController::class, 'index'])->name('index');
         Route::get('/test1', [AdminIndexController::class, 'test1'])->name('test1');
@@ -62,7 +62,7 @@ Route::name('admin.')
         Route::name('news.')
             ->prefix('news')
             ->namespace('News')
-            ->group(function(){
+            ->group(function () {
                 Route::get('/', [AdminNewsIndexController::class, 'index'])->name('index');
                 Route::get('/create/{id?}', [AdminNewsIndexController::class, 'create'])->name('create');
                 Route::get('/view/{id}', [AdminNewsIndexController::class, 'view'])->name('view');
@@ -74,7 +74,7 @@ Route::name('admin.')
                 Route::name('categories.')
                     ->prefix('categories')
                     ->namespace('categories')
-                    ->group(function(){
+                    ->group(function () {
                         Route::get('/', [AdminNewsCategoriesController::class, 'index'])->name('index');
                         Route::get('/create/{id?}', [AdminNewsCategoriesController::class, 'create'])->name('create');
                         Route::get('/view/{id}', [AdminNewsCategoriesController::class, 'view'])->name('view');
@@ -96,7 +96,7 @@ Route::name('admin.')
                 Route::name('sources.')
                     ->prefix('sources')
                     ->namespace('sources')
-                    ->group(function(){
+                    ->group(function () {
                         Route::get('/', [AdminNewsSourcesController::class, 'index'])->name('index');
                         Route::get('/create/{id?}', [AdminNewsSourcesController::class, 'create'])->name('create');
                         Route::get('/view/{id}', [AdminNewsSourcesController::class, 'view'])->name('view');
@@ -112,27 +112,25 @@ Route::name('admin.')
 //=========================================================================================================
 
 
-Route::view('/about','about')->name('about');
+Route::view('/about', 'about')->name('about');
 
-Route::fallback(function (){
+Route::fallback(function () {
     return view('errors.404');
 });
 
 Auth::routes();
 
 // routes for pictures from storage
-Route::get('storage/{filename}', function($filename)
-{
+Route::get('storage/{filename}', function ($filename) {
 
     $path = storage_path('app/public/' . $filename);
 
-    if(!File::exists($path))
-    {
+    if (!File::exists($path)) {
         abort(404);
     }
 
-    $file=File::get($path);
-    $type=File::mimeType($path);
+    $file = File::get($path);
+    $type = File::mimeType($path);
 
     $response = Response::make($file, 200);
     $response->header('Content-Type', $type);

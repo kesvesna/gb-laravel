@@ -8,6 +8,7 @@ class Alert extends Component
 {
     public $type;
     public $message;
+
     /**
      * Create a new component instance.
      *
