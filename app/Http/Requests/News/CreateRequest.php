@@ -27,10 +27,10 @@ class CreateRequest extends FormRequest
             'category_id' => ['required', 'integer', 'exists:news_categories,id'],
             'source_id' => ['required', 'integer', 'exists:news_sources,id'],
             'title' => ['required', 'string', 'min:2', 'max:200'],
-            'description' => ['nullable', 'string'],
-            'short_description' => ['nullable', 'string'],
+            'description' => ['required', 'string', 'min:2', 'max:500'],
+            'short_description' => ['required', 'string', 'min:2', 'max:300'],
             'image' => ['nullable', 'image', 'mimes:jpg, png'],
-            'is_private' => ['nullable', 'integer']
+            'is_private' => ['boolean']
         ];
     }
 }

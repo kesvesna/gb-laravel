@@ -136,6 +136,8 @@ return [
 
     'attributes' => [
         'title' => 'заголовок',
-        'author' => 'автор'
+        'author' => 'автор',
+        'description' => 'текст новости',
+        'short_description' => 'краткое описание новости'
     ]
 ];

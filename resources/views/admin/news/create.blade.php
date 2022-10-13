@@ -20,10 +20,11 @@
                         <form method="POST" enctype="multipart/form-data" action="{{ route('admin.news.store', ['id' => $new->id]) }}">
                             @csrf
                             <div class="form-group mb-3">
+                                @include('inc.message')
                                 <label for="newsCategory">Категории новостей</label>
                                 <select name="category_id" id="newsCategory" class="form-control">
                                     @forelse($categories as $category)
-                                        <option @if($category->id == old('categories')) selected @endif
+                                        <option @if($category->id == $new->category->id) selected @endif
                                         value="{{ $category->id }}">{{ $category->name }}
                                         </option>
                                     @empty
@@ -35,7 +36,7 @@
                                 <label for="newsSource">Категории источников новостей</label>
                                 <select name="source_id" id="newsSource" class="form-control">
                                     @forelse($sources as $source)
-                                        <option @if($source->id == old('source')) selected @endif
+                                        <option @if($source->id == $new->source->id) selected @endif
                                         value="{{ $source->id }}">{{ $source->name }}
                                         </option>
                                     @empty

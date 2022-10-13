@@ -23,15 +23,22 @@ class IndexController extends Controller
     public function index(NewsQueryBuilder $news_builder, CategoryQueryBuilder $categories_builder)
     {
         return view('admin.news.index', [
-            'news' => $news_builder->getAllNews(5),
+            'news' => $news_builder->getAllNews(config('admin_panel.news.pagination')),
             'categories' => $categories_builder->getCategories()
         ]);
     }
 
-    public function create(NewsQueryBuilder $news_builder, CategoryQueryBuilder $category_builder, SourceQueryBuilder $source_builder, $new_id = null)
+    public function create(
+        NewsQueryBuilder $news_builder,
+        CategoryQueryBuilder $category_builder,
+        SourceQueryBuilder $source_builder,
+        News $news,
+        $new_id = null
+    )
     {
+
         return view('admin.news.create', [
-            'new' => $news_builder->getNewsById($new_id),
+            'new' => $new_id? $news_builder->getNewsById($new_id) : $news,
             'categories' => $category_builder->getCategories(),
             'sources' => $source_builder->getSources()
         ]);
@@ -49,21 +56,21 @@ class IndexController extends Controller
      * @param $new_id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(CreateRequest $request, NewsQueryBuilder $builder, $new_id = null)
+    public function store(CreateRequest $request, NewsQueryBuilder $builder, News $news, $new_id = null)
     {
         if ($request->isMethod(('post'))) {
 
-            $news = $builder->getNewsById($new_id);
+            if($request->input('is_private') != "1")
+            {
+                $request->request->add(['is_private' => "0"]);
+            }
 
             if (is_null($new_id)) {
                 $news = $builder->create($request->validated());
             } else
             {
-                $news->fill($request->validated());
-            }
-
-            if (!is_null($request->input('is_private'))) {
-                $news->is_private = true;
+                $news = $builder->getNewsById($new_id);
+                $news->fill($request->validated() + ['is_private' => $request->input('is_private')]);
             }
 
             if ($request->hasFile('image')) {

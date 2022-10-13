@@ -18,11 +18,11 @@ final class NewsQueryBuilder
         $this->model = News::query();
     }
 
-    public function getAllNews(int $paginate_pages): LengthAwarePaginator
+    public function getAllNews(int $paginate): LengthAwarePaginator
     {
         return $this->model
                     ->with('category')
-                    ->paginate($paginate_pages);
+                    ->paginate($paginate);
     }
 
     public function getNewsByCategory(int $category_id, bool $isAdmin = false): LengthAwarePaginator

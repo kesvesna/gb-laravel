@@ -36,7 +36,7 @@ class CategoryTest extends DuskTestCase
                 ->type('name', $category->name)
                 ->type('slug', $category->slug)
                 ->press('Сохранить')
-                ->assertPathIs('/admin/news/category/');
+                ->assertPathIs('/admin/news/');
         });
     }
 }

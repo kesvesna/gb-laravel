@@ -30,7 +30,7 @@ class UpdateRequest extends FormRequest
             'description' => ['nullable', 'string'],
             'short_description' => ['nullable', 'string'],
             'image' => ['nullable', 'image', 'mimes:jpg, png'],
-            'is_private' => ['nullable', 'integer']
+            'is_private' => ['nullable', 'boolean']
         ];
     }
 }
