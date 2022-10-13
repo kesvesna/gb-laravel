@@ -20,8 +20,9 @@
                         @include('inc.message')
                         <form method="POST" action="{{ route('admin.news.categories.store', ['id' => $category->id]) }}">
                             @csrf
+                            @include('inc.message')
                             <div class="mb-3">
-                                <label for="inputTitle" class="form-label">Название категории</label>
+                                <label for="inputTitle" class="form-label">Название</label>
                                 <input
                                     type="text"
                                     class="form-control"
@@ -32,7 +33,7 @@
                                 >
                             </div>
                             <div class="mb-3">
-                                <label for="inputSlug" class="form-label">Slug категории</label>
+                                <label for="inputSlug" class="form-label">Slug</label>
                                 <input
                                     type="text"
                                     class="form-control"

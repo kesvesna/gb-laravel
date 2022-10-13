@@ -138,6 +138,8 @@ return [
         'title' => 'заголовок',
         'author' => 'автор',
         'description' => 'текст новости',
-        'short_description' => 'краткое описание новости'
+        'short_description' => 'краткое описание новости',
+        'name' => 'название',
+        'slug' => 'путь для url',
     ]
 ];

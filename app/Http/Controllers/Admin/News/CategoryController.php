@@ -5,15 +5,16 @@ namespace App\Http\Controllers\Admin\News;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\News\Categories\CreateCategoryRequest;
 use App\Models\News\Category;
+use App\Models\News\CategoryQueryBuilder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function index()
+    public function index(CategoryQueryBuilder $builder)
     {
         return view('admin.news.categories.index', [
-            'categories' => Category::all()
+            'categories' => $builder->getCategories()
         ]);
     }
 
@@ -37,14 +38,15 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function store(CreateCategoryRequest $request, $category_id = null): RedirectResponse
+    public function store(CreateCategoryRequest $request, CategoryQueryBuilder $builder, $category_id = null): RedirectResponse
     {
         if ($request->isMethod(('post'))) {
 
             // for create new category
-            $category = new Category(
-                $request->validated()
-            );
+            $category = $builder->create($request->validated());
+//            $category = new Category(
+//                $request->validated()
+//            );
 
             //for update category
             //$category = $category->fill($request->validated());

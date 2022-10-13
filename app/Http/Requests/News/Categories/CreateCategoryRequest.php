@@ -29,8 +29,8 @@ class CreateCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required|string|unique:news_categories,title|min:2|max:255'],
-            'slug' => ['required|string|unique:news_categories,slug|max:255'],
+            'name' => ['required', 'string', 'unique:news_categories,name', 'min:2', 'max:255'],
+            'slug' => ['required', 'string', 'unique:news_categories,slug', 'min:2', 'max:255'],
 
         ];
     }
@@ -40,39 +40,39 @@ class CreateCategoryRequest extends FormRequest
      *
      * @return array
      */
-    public function messages(): array
-    {
+    //public function messages(): array
+    //{
         // если этих данных не будет,
         // то будут браться данные из файла validation.php
-        return [
-            'title.required' => 'A title is required',
-            'category_id.required' => 'A category is required',
-            'source_id.required' => 'A source is required',
-            'min' => [
-                'string' => 'Поле :attribute должно быть не меньше :min'
-            ]
-        ];
-    }
+        //return [
+//            'title.required' => 'A title is required',
+//            'category_id.required' => 'A category is required',
+//            'source_id.required' => 'A source is required',
+//            'min' => [
+//                'string' => 'Поле :attribute должно быть не меньше :min'
+          //  ]
+        //];
+   // }
 
     /**
      * Prepare the data for validation.
      *
      * @return void
      */
-    protected function prepareForValidation()
-    {
-        $this->merge([
-            'slug' => Str::slug($this->slug),
-        ]);
-    }
+//    protected function prepareForValidation()
+//    {
+//        $this->merge([
+//            'slug' => Str::slug($this->slug),
+//        ]);
+//    }
 
-    public function attributes(): array
-    {
-        // будет использовать при отправке сообщений,
-        // если этих данных не будет, то будут браться из файла  ru/validation.php
-        return [
-            'title' => 'тайтл',
-            'author' => 'автор'
-        ];
-    }
+//    public function attributes(): array
+//    {
+//        // будет использовать при отправке сообщений,
+//        // если этих данных не будет, то будут браться из файла  ru/validation.php
+//        return [
+//            'name' => 'название',
+//            'slug' => 'slug'
+//        ];
+//    }
 }
