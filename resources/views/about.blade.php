@@ -1,15 +1,19 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Laravel</title>
-    </head>
-    <body class="antialiased">
-    <header></header>
-    <content>
-        About us.
-    </content>
-    <footer></footer>
-    </body>
-</html>
+@extends('layouts.app')
+
+@section('title')
+    @parent О проекте
+@endsection
+
+@section('menu')
+    @include('menu')
+@endsection
+
+@section('content')
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <h4 class="mt-3">О нас</h4>
+            </div>
+        </div>
+    </div>
+@endsection
