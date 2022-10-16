@@ -19,16 +19,21 @@
                 <div class="card">
                     <div class="card-header">Новости: {{ $categories->name }}</div>
                     <div class="card-body">
-                        @if ($news)
-                            @if(!$news->is_private)
-                                <h5>{{ $news->title }}</h5>
-                                <p>{{ $news->description }}</p>
+                        @guest
+                            @if ($news)
+                                @if(!$news->is_private)
+                                    <h5>{{ $news->title }}</h5>
+                                    <p>{{ $news->description }}</p>
+                                @else
+                                    <p>Зарегистрируйтесь для просмотра всех новостей</p>
+                                @endif
                             @else
-                                <p>Зарегистрируйтесь для просмотра всех новостей</p>
+                                <p>Нет такой новости</p>
                             @endif
                         @else
-                            <p>Нет такой новости</p>
-                        @endif
+                            <h5>{{ $news->title }}</h5>
+                            <p>{{ $news->description }}</p>
+                        @endguest
                     </div>
                 </div>
             </div>
