@@ -1,12 +1,18 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title')
     @parent Добавление новости
 @endsection
 
-@section('menu')
-    @include('news.menu')
+@section('left_menu_for_admin')
+    @include('components.left_menu_for_admin')
 @endsection
+
+@section('right_menu')
+    @include('components.right_menu')
+@endsection
+
+
 @section('content')
     <div class="container">
         <div class="row justify-content-center">

@@ -4,8 +4,12 @@
     @parent Главная
 @endsection
 
-@section('menu')
-    @include('menu')
+@section('left_menu_for_all_users')
+    @include('components.left_menu_for_all_users')
+@endsection
+
+@section('right_menu')
+    @include('components.right_menu')
 @endsection
 
 @section('content')
@@ -14,7 +18,9 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        Добро пожаловать в агрегатор новостей!
+                        Добро пожаловать @if(isset(Auth::user()->name))
+                            {{ Auth::user()->name }}
+                        @endif в агрегатор новостей!
                     </div>
                 </div>
             </div>

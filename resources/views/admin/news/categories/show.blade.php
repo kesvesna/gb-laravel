@@ -1,11 +1,15 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title')
     @parent Админка категория
 @endsection
 
-@section('menu')
-    @include('admin.menu')
+@section('left_menu_for_admin')
+    @include('components.left_menu_for_admin')
+@endsection
+
+@section('right_menu')
+    @include('components.right_menu')
 @endsection
 
 @section('content')
@@ -25,7 +29,7 @@
                         <hr>
                         <p><b>Slug:</b> {{ $category->slug }}</p>
                         <hr>
-                        <a href="{{ route('admin.news.categories.create', ['id' => $category->id]) }}"
+                        <a href="{{ route('admin.news.categories.create') }}"
                            class="btn btn-outline-danger" role="button" aria-pressed="true"
                            style="margin: 0px 20px 0px 0px;">Редактировать</a>
                         <a href="{{ route('admin.news.categories.index') }}" class="btn btn-outline-success"

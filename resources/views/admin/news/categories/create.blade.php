@@ -1,11 +1,15 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title')
     @parent Админка редакция категорий
 @endsection
 
-@section('menu')
-    @include('admin.menu')
+@section('left_menu_for_admin')
+    @include('components.left_menu_for_admin')
+@endsection
+
+@section('right_menu')
+    @include('components.right_menu')
 @endsection
 
 @section('content')
@@ -20,7 +24,7 @@
                     <div class="card-body">
                         @include('inc.message')
                         <form method="POST"
-                              action="{{ route('admin.news.categories.store', ['id' => $category->id]) }}">
+                              action="{{ route('admin.news.categories.store', $category->id) }}">
                             @csrf
                             <div class="mb-3">
                                 <label for="inputTitle" class="form-label">Название</label>

@@ -1,11 +1,15 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title')
     @parent Админка категорий
 @endsection
 
-@section('menu')
-    @include('admin.menu')
+@section('left_menu_for_admin')
+    @include('components.left_menu_for_admin')
+@endsection
+
+@section('right_menu')
+    @include('components.right_menu')
 @endsection
 
 @section('content')
@@ -37,14 +41,14 @@
                                     <td class="d-flex justify-content-between">
                                         {{ $category->slug }}
                                         <div>
-                                            <a href="{{ route('admin.news.categories.view', [ 'id' => $category->id]) }}"><img
+                                            <a href="{{ route('admin.news.categories.show', $category->id) }}"><img
                                                     src="../../assets/svg/view.svg" alt="Edit image" width="20"
                                                     height="20" title="Просмотр" style="margin: 0px 10px 0px 0px;"></a>
-                                            <a href="{{ route('admin.news.categories.create', [ 'id' => $category->id]) }}"><img
+                                            <a href="{{ route('admin.news.categories.create') }}"><img
                                                     src="../../assets/svg/edit.svg" alt="Edit image"
                                                     style="margin: 0px 10px 0px 0px;" width="20" height="20"
                                                     title="Редактировать"></a>
-                                            <a href="{{ route('admin.news.categories.delete', [ 'id' => $category->id]) }}"><img
+                                            <a href="{{ route('admin.news.categories.destroy', $category->id) }}"><img
                                                     src="../../assets/svg/delete.svg" alt="Edit image" width="20"
                                                     height="20" title="Удалить"></a>
                                         </div>

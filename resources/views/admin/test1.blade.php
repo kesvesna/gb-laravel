@@ -1,11 +1,15 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title')
     @parent Тестовая 1
 @endsection
 
-@section('menu')
-    @include('admin.menu')
+@section('left_menu_for_admin')
+    @include('components.left_menu_for_admin')
+@endsection
+
+@section('right_menu')
+    @include('components.right_menu')
 @endsection
 
 @section('content')

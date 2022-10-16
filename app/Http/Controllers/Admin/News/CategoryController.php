@@ -31,9 +31,9 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function view(CategoryQueryBuilder $builder, $id)
+    public function show(CategoryQueryBuilder $builder, $id)
     {
-        return view('admin.news.categories.view', [
+        return view('admin.news.categories.show', [
             'category' => $builder->getCategoryById($id),
         ]);
     }
@@ -51,7 +51,7 @@ class CategoryController extends Controller
 
             if ($category->save()) {
                 return \redirect()
-                    ->route('admin.news.categories.view', ['id' => $category->id])
+                    ->route('admin.news.categories.show', ['id' => $category->id])
                     ->with('success', 'Запись добавлена');
             }
 
@@ -59,7 +59,7 @@ class CategoryController extends Controller
         return back()->with('error', 'Не удалось добавить запись');
     }
 
-    public function delete(CategoryQueryBuilder $builder, $id = null)
+    public function destroy(CategoryQueryBuilder $builder, $id = null)
     {
         if (!is_null($id)) {
             $builder->delete($id);
@@ -68,5 +68,15 @@ class CategoryController extends Controller
         return redirect()->route('admin.news.categories.index', [
             'categories' => $builder->getCategories(),
         ]);
+    }
+
+    public function update()
+    {
+
+    }
+
+    public function edit()
+    {
+
     }
 }

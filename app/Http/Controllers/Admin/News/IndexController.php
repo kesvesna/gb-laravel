@@ -44,13 +44,6 @@ class IndexController extends Controller
         ]);
     }
 
-    public function view(NewsQueryBuilder $builder, $id)
-    {
-        return view('admin.news.view', [
-            'new' => $builder->getNewsById($id)
-        ]);
-    }
-
     /**
      * @param CreateRequest $request
      * @param $new_id
@@ -78,7 +71,7 @@ class IndexController extends Controller
 
             if ($news->save()) {
                 return \redirect()
-                    ->route('admin.news.view', ['id' => $news->id])
+                    ->route('admin.news.show', ['id' => $news->id])
                     ->with('success', 'Запись добавлена');
             }
 
@@ -86,10 +79,36 @@ class IndexController extends Controller
         return back()->with('error', 'Не удалось добавить запись');
     }
 
-    public function delete($id = null): JsonResponse
+    public function show(News $news)
+    {
+        return view('admin.news.show', [
+            'new' => $news
+        ]);
+    }
+
+    public function edit(News $news)
+    {
+        return view('admin.news.edit', [
+            'news' => $news
+        ]);
+    }
+
+
+    public function update(News $news, Request $request)
+    {
+        $data = $request->validate([
+            'trk_id' => 'required',
+            'comment' => 'string',
+        ]);
+        $news->update($data);
+        return redirect()->route('admin.news.show', $news->id);
+    }
+
+
+    public function destroy($id = null): JsonResponse
     {
         try {
-            $deleted = News::find($id)->delete();
+            $deleted = News::findOrFail($id)->delete();
             if ($deleted) {
                 return \response()->json('ok', 200);
             }
@@ -101,3 +120,4 @@ class IndexController extends Controller
         }
     }
 }
+

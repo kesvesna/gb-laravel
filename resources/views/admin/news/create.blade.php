@@ -1,11 +1,15 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title')
     @parent Админка редакция новостей
 @endsection
 
-@section('menu')
-    @include('admin.menu')
+@section('left_menu_for_admin')
+    @include('components.left_menu_for_admin')
+@endsection
+
+@section('right_menu')
+    @include('components.right_menu')
 @endsection
 
 @section('content')
@@ -18,7 +22,7 @@
                     </div>
                     <div class="card-body">
                         <form method="POST" enctype="multipart/form-data"
-                              action="{{ route('admin.news.store', ['id' => $new->id]) }}">
+                              action="{{ route('admin.news.store', $new->id) }}">
                             @csrf
                             <div class="form-group mb-3">
                                 @include('inc.message')

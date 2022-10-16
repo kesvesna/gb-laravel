@@ -4,8 +4,12 @@
     @parent Категории новостей
 @endsection
 
-@section('menu')
-    @include('news.menu')
+@section('left_menu_for_all_users')
+    @include('components.left_menu_for_all_users')
+@endsection
+
+@section('right_menu')
+    @include('components.right_menu')
 @endsection
 
 @section('content')

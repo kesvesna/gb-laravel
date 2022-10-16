@@ -29,9 +29,9 @@ class SourceController extends Controller
         ]);
     }
 
-    public function view(SourceQueryBuilder $builder, $id)
+    public function show(SourceQueryBuilder $builder, $id)
     {
-        return view('admin.news.sources.view', [
+        return view('admin.news.sources.show', [
             'source' => $builder->getSourceById($id)
         ]);
     }
@@ -49,7 +49,7 @@ class SourceController extends Controller
 
             if ($source->save()) {
                 return \redirect()
-                    ->route('admin.news.sources.view', ['id' => $source->id])
+                    ->route('admin.news.sources.show', ['id' => $source->id])
                     ->with('success', 'Запись добавлена');
             }
 
@@ -57,7 +57,7 @@ class SourceController extends Controller
         return back()->with('error', 'Не удалось добавить запись');
     }
 
-    public function delete(SourceQueryBuilder $builder, $id = null)
+    public function destroy(SourceQueryBuilder $builder, $id = null)
     {
         if (!is_null($id)) {
             $builder->delete($id);
@@ -66,5 +66,15 @@ class SourceController extends Controller
         return redirect()->route('admin.news.sources.index', [
             'sources' => $builder->getSources(),
         ]);
+    }
+
+    public function update()
+    {
+
+    }
+
+    public function edit()
+    {
+
     }
 }

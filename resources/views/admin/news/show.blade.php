@@ -1,11 +1,15 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title')
     @parent Админка новость
 @endsection
 
-@section('menu')
-    @include('admin.menu')
+@section('left_menu_for_admin')
+    @include('components.left_menu_for_admin')
+@endsection
+
+@section('right_menu')
+    @include('components.right_menu')
 @endsection
 
 @section('content')
@@ -37,7 +41,7 @@
                                 href="{{ $new->image? $new->image : '#' }}"> {{ $new->image? $new->image : 'Отсутствует'}}</a>
                         </p>
                         <hr>
-                        <a href="{{ route('admin.news.create', ['id' => $new->id]) }}" class="btn btn-outline-danger"
+                        <a href="{{ route('admin.news.create') }}" class="btn btn-outline-danger"
                            role="button" aria-pressed="true" style="margin: 0px 20px 0px 0px;">Редактировать</a>
                         <a href="{{ route('admin.news.index') }}" class="btn btn-outline-success" role="button"
                            aria-pressed="true">Все новости</a>
