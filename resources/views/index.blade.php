@@ -20,6 +20,9 @@
                     <div class="card-body">
                         Добро пожаловать @if(isset(Auth::user()->name))
                             {{ Auth::user()->name }}
+                            @if(Auth::user()->avatar)
+                               <img class="rounded-circle" src="{{ Auth::user()->avatar }}">
+                            @endif
                         @endif в агрегатор новостей!
                     </div>
                 </div>

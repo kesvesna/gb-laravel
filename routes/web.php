@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\News\SourceController as AdminNewsSourcesControll
 use App\Http\Controllers\Admin\Users\UserController as AdminUsersController;
 use App\Http\Controllers\Admin\ParserController as AdminParserController;
 
+use \App\Http\Controllers\SocialProviders as SocialProvidersController;
+
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
@@ -101,6 +103,14 @@ Route::get('storage/{filename}', function ($filename) {
     $response->header('Content-Type', $type);
 
     return $response;
+});
+
+Route::group(['middleware' => 'guest'], function() {
+    Route::get('/auth/redirect/{driver}', [SocialProvidersController::class, 'redirect'])
+                                ->where('driver', '\w+')
+                                ->name('social.auth.redirect');
+    Route::get('/auth/callback/{driver}', [SocialProvidersController::class, 'callback'])
+                                ->where('driver', '\w+');
 });
 
 Auth::routes();

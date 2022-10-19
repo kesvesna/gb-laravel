@@ -18,7 +18,9 @@
     <li class="nav-item">
         <a class="nav-link {{ request()->routeIs('admin.users.index')?'active':'' }}" href="{{ route('admin.users.index') }}">Пользователи</a>
     </li>
-
+    <li class="nav-item">
+        <a class="nav-link {{ request()->routeIs('admin.parser')?'active':'' }}" href="{{ route('admin.parser') }}">Парсер</a>
+    </li>
 
 
 
