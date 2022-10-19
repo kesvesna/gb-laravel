@@ -5,6 +5,8 @@ use App\Http\Controllers\Admin\News\IndexController as AdminNewsIndexController;
 use App\Http\Controllers\Admin\News\CategoryController as AdminNewsCategoriesController;
 use App\Http\Controllers\Admin\News\SourceController as AdminNewsSourcesController;
 use App\Http\Controllers\Admin\Users\UserController as AdminUsersController;
+use App\Http\Controllers\Admin\ParserController as AdminParserController;
+
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
@@ -53,6 +55,8 @@ Route::middleware(['auth', 'admin_panel'])->group(function(){
     Route::name('admin.')
         ->prefix('admin')
         ->group(function () {
+
+            Route::get('/parser', AdminParserController::class)->name('parser');
 
             Route::get('/', [AdminIndexController::class, 'index'])->name('index');
             Route::get('/test1', [AdminIndexController::class, 'test1'])->name('test1');
