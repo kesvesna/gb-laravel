@@ -49,7 +49,6 @@ Route::prefix('news')
         Route::get('/{categories}/{id}', [NewsController::class, 'show'])->where('id', '[0-9]+')->name('news.one');
         Route::get('/{categories}', [NewsCategoriesController::class, 'show'])->name('categories');
     });
-
 //==============================================================================
 
 

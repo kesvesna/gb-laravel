@@ -24,13 +24,10 @@ class CreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'category_id' => ['required', 'integer', 'exists:news_categories,id'],
-            'source_id' => ['required', 'integer', 'exists:news_sources,id'],
-            'title' => ['required', 'string', 'min:2', 'max:200'],
+            'title' => ['required', 'string', 'min:2', 'max:255'],
             'description' => ['required', 'string', 'min:2', 'max:500'],
-            'short_description' => ['required', 'string', 'min:2', 'max:300'],
-            'image' => ['nullable', 'image', 'mimes:jpg, png'],
-            'is_private' => ['boolean']
+            'link' => ['required', 'string', 'min:2', 'max:255'],
+            'pubDate' => 'date',
         ];
     }
 }

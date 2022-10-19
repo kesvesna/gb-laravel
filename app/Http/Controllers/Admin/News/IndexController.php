@@ -23,7 +23,7 @@ class IndexController extends Controller
     public function index(NewsQueryBuilder $news_builder, CategoryQueryBuilder $categories_builder)
     {
         return view('admin.news.index', [
-            'news' => $news_builder->getAllNews(config('admin_panel.news.pagination')),
+            'news' => News::paginate(config('admin.applications.pagination')),
             'categories' => $categories_builder->getCategories()
         ]);
     }
@@ -53,25 +53,16 @@ class IndexController extends Controller
     {
         if ($request->isMethod(('post'))) {
 
-            if ($request->input('is_private') != "1") {
-                $request->request->add(['is_private' => "0"]);
-            }
-
             if (is_null($new_id)) {
-                $news = $builder->create($request->validated());
+                $news = $builder->create($request->validated() + ['guid' => $request->input('link')]);
             } else {
                 $news = $builder->getNewsById($new_id);
                 $news->fill($request->validated() + ['is_private' => $request->input('is_private')]);
             }
 
-            if ($request->hasFile('image')) {
-                $path = Storage::putFile('public', $request->file('image'));
-                $news->image = Storage::url($path);
-            }
-
             if ($news->save()) {
                 return \redirect()
-                    ->route('admin.news.show', ['id' => $news->id])
+                    ->route('admin.news.show', $news->id)
                     ->with('success', 'Запись добавлена');
             }
 
@@ -89,7 +80,7 @@ class IndexController extends Controller
     public function edit(News $news)
     {
         return view('admin.news.edit', [
-            'news' => $news
+            'new' => $news
         ]);
     }
 

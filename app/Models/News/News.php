@@ -15,13 +15,11 @@ class News extends Model
     protected $table = "news";
 
     protected $fillable = [
-        'category_id',
-        'source_id',
-        'image',
         'title',
-        'is_private',
-        'short_description',
-        'description'
+        'description',
+        'link',
+        'guid',
+        'pubDate'
     ];
 
     public function category(): BelongsTo

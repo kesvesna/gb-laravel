@@ -27,30 +27,31 @@
                             <thead>
                             <tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">Дата создания</th>
-                                <th scope="col">Категория</th>
+                                <th scope="col">Дата публикации</th>
                                 <th scope="col">Заголовок</th>
-                                <th scope="col">Краткое описание</th>
+                                <th scope="col">Ссылка</th>
+                                <th scope="col">GUID</th>
+                                <th scope="col">Описание</th>
                             </tr>
                             </thead>
                             <tbody>
                             @forelse ($news as $new)
                                 <tr>
                                     <th>{{ $new->id }}</th>
-                                    <td>{{ $new->created_at }}</td>
-                                    <td>{{ $new->category->name }}</td>
+                                    <th>{{$new->pubDate}}</th>
                                     <td>{{ $new->title }}</td>
+                                    <td>{{ $new->link }}</td>
+                                    <td>{{ $new->guid }}</td>
                                     <td class="d-flex justify-content-between">
-                                        {{ $new->short_description }}
+                                        {{ $new->description }}
                                         <div>
                                             <a href="{{ route('admin.news.show', $new->id) }}"><img
                                                     src="../../assets/svg/view.svg" alt="Edit image" width="20"
                                                     height="20" title="Просмотр" style="margin: 0px 10px 0px 0px;"></a>
-                                            <a href="{{ route('admin.news.create') }}"><img
+                                            <a href="{{ route('admin.news.edit', $new->id) }}"><img
                                                     src="../../assets/svg/edit.svg" alt="Edit image"
                                                     style="margin: 0px 10px 0px 0px;" width="20" height="20"
                                                     title="Редактировать"></a>
-                                            {{--                                            <a href="{{ route('admin.news.delete', [ 'id' => $new->id]) }}"><img src="../../assets/svg/delete.svg" alt="Edit image" width="20" height="20" title="Удалить"></a>--}}
                                             <a href="javascript:;" rel="{{ $new->id }}" class="delete"><img
                                                     src="../../assets/svg/delete.svg" alt="Edit image" width="20"
                                                     height="20" title="Удалить"></a>
@@ -78,7 +79,7 @@
                 e.addEventListener("click", function () {
                     const id = e.getAttribute("rel");
                     if (confirm(`Удалить запись с ID: ${id}`)) {
-                        send(`/admin/news/delete/${id}`).then(() => {
+                        send(`/admin/news/destroy/${id}`).then(() => {
                             location.reload();
                         });
                     }

@@ -18,7 +18,8 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h2>Админка создания новости</h2>
+                        <h2>Админка {{ $new->id? 'редактирования' : 'создания' }}
+                            новости {{ $new->id? 'с ID: ' . $new->id : '' }}</h2>
                     </div>
                     <div class="card-body">
                         <form method="POST" enctype="multipart/form-data"
