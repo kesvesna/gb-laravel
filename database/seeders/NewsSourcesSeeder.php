@@ -18,8 +18,8 @@ class NewsSourcesSeeder extends Seeder
     {
         DB::table('news_sources')->insert([
             'id' => 1,
-            'name' => 'Телеграмм',
-            'slug' => 'telegram',
+            'name' => 'https://news.rambler.ru/rss/tech',
+            'slug' => 'tech',
             'deleted_at' => null,
             'created_at' => now(),
             'updated_at' => now()
@@ -27,8 +27,8 @@ class NewsSourcesSeeder extends Seeder
 
         DB::table('news_sources')->insert([
             'id' => 2,
-            'name' => 'Вконтакте',
-            'slug' => 'vk',
+            'name' => 'https://news.rambler.ru/rss/moscow_city',
+            'slug' => 'moscow_city',
             'deleted_at' => null,
             'created_at' => now(),
             'updated_at' => now()
@@ -36,8 +36,8 @@ class NewsSourcesSeeder extends Seeder
 
         DB::table('news_sources')->insert([
             'id' => 3,
-            'name' => 'Нью-Йорк Таймс',
-            'slug' => 'new_york_times',
+            'name' => 'https://news.rambler.ru/rss/holiday',
+            'slug' => 'holiday',
             'deleted_at' => null,
             'created_at' => now(),
             'updated_at' => now()
@@ -45,8 +45,8 @@ class NewsSourcesSeeder extends Seeder
 
         DB::table('news_sources')->insert([
             'id' => 4,
-            'name' => 'Washington post',
-            'slug' => 'washington_post',
+            'name' => 'https://news.rambler.ru/rss/technology',
+            'slug' => 'technology',
             'deleted_at' => null,
             'created_at' => now(),
             'updated_at' => now()
@@ -54,53 +54,8 @@ class NewsSourcesSeeder extends Seeder
 
         DB::table('news_sources')->insert([
             'id' => 5,
-            'name' => 'Новости науки для студентов',
-            'slug' => 'science_news_for_students',
-            'deleted_at' => null,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        DB::table('news_sources')->insert([
-            'id' => 6,
-            'name' => 'RT',
-            'slug' => 'rt',
-            'deleted_at' => null,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        DB::table('news_sources')->insert([
-            'id' => 7,
-            'name' => 'РБК',
-            'slug' => 'rbk',
-            'deleted_at' => null,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        DB::table('news_sources')->insert([
-            'id' => 8,
-            'name' => 'Дождь',
-            'slug' => 'dozhd',
-            'deleted_at' => null,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        DB::table('news_sources')->insert([
-            'id' => 9,
-            'name' => 'Moscow City Journal',
-            'slug' => 'moscow_city_journal',
-            'deleted_at' => null,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-
-        DB::table('news_sources')->insert([
-            'id' => 10,
-            'name' => 'Аргументы и факты',
-            'slug' => 'arguments_and_facts',
+            'name' => 'https://news.rambler.ru/rss/gifts',
+            'slug' => 'gifts',
             'deleted_at' => null,
             'created_at' => now(),
             'updated_at' => now()

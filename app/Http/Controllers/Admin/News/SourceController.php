@@ -29,52 +29,48 @@ class SourceController extends Controller
         ]);
     }
 
-    public function show(SourceQueryBuilder $builder, $id)
+    public function show(Source $source)
     {
         return view('admin.news.sources.show', [
-            'source' => $builder->getSourceById($id)
+            'source' => $source
         ]);
     }
 
-    public function store(CreateSourceRequest $request, SourceQueryBuilder $builder, $source_id = null)
+    public function store(Request $request)
     {
-        if ($request->isMethod(('post'))) {
+        $data = $request->validate([
+            'name' => ['required', 'string'],
+            'slug' => ['required', 'string'],
+        ]);
 
-            if (is_null($source_id)) {
-                $source = $builder->create($request->validated());
-            } else {
-                $source = $builder->getSourceById($source_id);
-                $source = $source->fill($request->validated());
-            }
-
-            if ($source->save()) {
-                return \redirect()
-                    ->route('admin.news.sources.show', ['id' => $source->id])
-                    ->with('success', 'Запись добавлена');
-            }
-
+        if (Source::create($data)) {
+            return redirect()->route('admin.news.sources.index')->with('success', 'Запись добавлена');
         }
+
         return back()->with('error', 'Не удалось добавить запись');
     }
 
-    public function destroy(SourceQueryBuilder $builder, $id = null)
+    public function destroy(Source $source)
     {
-        if (!is_null($id)) {
-            $builder->delete($id);
-        }
+        $source->delete();
+        return redirect()->route('admin.news.sources.index');
+    }
 
-        return redirect()->route('admin.news.sources.index', [
-            'sources' => $builder->getSources(),
+    public function update(Source $source, Request $request)
+    {
+        $data = $request->validate([
+            'name' => 'string',
+            'slug' => ''
         ]);
+
+        $source->update($data);
+        return redirect()->route('admin.news.sources.show', $source->id);
     }
 
-    public function update()
+    public function edit(Source $source)
     {
-
-    }
-
-    public function edit()
-    {
-
+        return view('admin.news.sources.edit', [
+            'source' => $source
+        ]);
     }
 }

@@ -59,7 +59,7 @@
                                     </td>
                                 </tr>
                             @empty
-                                <p>No news</p>
+                                <p>Нет новостей</p>
                             @endforelse
                             </tbody>
                         </table>

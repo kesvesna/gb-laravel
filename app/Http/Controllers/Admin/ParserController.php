@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\JobNewsParsing;
+use App\Models\News\Category;
 use App\Models\News\News;
+use App\Models\News\Source;
 use App\Services\Contracts\Parser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -19,14 +22,14 @@ class ParserController extends Controller
      */
     public function __invoke(Request $request, Parser $parser)
     {
-        $load = $parser->setLink('https://lenta.ru/rss')
-                        ->getParseData();
 
-        foreach($load['news'] as $new) {
-            $new['pubDate'] = date('Y-m-d h:i:s', strtotime($new['pubDate']));
-            News::firstOrCreate($new);
+        // TODO get urls from database table with name sources
+        $urls = Source::all();
+
+        foreach($urls as $url) {
+            \dispatch(new JobNewsParsing($url->name));
         }
 
-        return redirect()->route('admin.news.index');
+        return "Парсинг закончен <br><a href='javascript:history.back()'>Назад</a>";
     }
 }

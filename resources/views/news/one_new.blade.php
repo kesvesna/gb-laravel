@@ -19,6 +19,7 @@
                 <div class="card">
                     <div class="card-header">Новости: {{ $categories->name }}</div>
                     <div class="card-body">
+{{--                        <img src="{{ Storage::disk('public')->url($news->image) }}" alt="New picture">--}}
                         @guest
                             @if ($news)
                                 @if(!$news->is_private)

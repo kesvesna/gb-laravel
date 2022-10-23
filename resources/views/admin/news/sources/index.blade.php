@@ -30,6 +30,7 @@
                                 <th scope="col">Дата создания</th>
                                 <th scope="col">Название</th>
                                 <th scope="col">Slug</th>
+                                <th scope="col">Операции</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -40,18 +41,22 @@
                                     <td>{{ $source->name }}</td>
                                     <td class="d-flex justify-content-between">
                                         {{ $source->slug }}
-                                        <div>
+                                    </td>
+                                    <td>
+                                        <form action="{{ route('admin.news.sources.destroy', $source->id) }}" method="post">
+                                            @csrf
+                                            @method('delete')
                                             <a href="{{ route('admin.news.sources.show', $source->id) }}"><img
                                                     src="../../assets/svg/view.svg" alt="Edit image" width="20"
                                                     height="20" title="Просмотр" style="margin: 0px 10px 0px 0px;"></a>
-                                            <a href="{{ route('admin.news.sources.create') }}"><img
+                                            <a href="{{ route('admin.news.sources.edit', $source->id) }}"><img
                                                     src="../../assets/svg/edit.svg" alt="Edit image"
                                                     style="margin: 0px 10px 0px 0px;" width="20" height="20"
                                                     title="Редактировать"></a>
-                                            <a href="{{ route('admin.news.sources.destroy', $source->id) }}"><img
+                                            <button type="submit" style="border: none; background-color: transparent;"><img
                                                     src="../../assets/svg/delete.svg" alt="Edit image" width="20"
-                                                    height="20" title="Удалить"></a>
-                                        </div>
+                                                    height="20" title="Удалить"></button>
+                                        </form>
                                     </td>
                                 </tr>
                             @empty

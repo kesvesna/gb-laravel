@@ -11,6 +11,7 @@ use App\Models\News\News;
 use App\Models\News\NewsQueryBuilder;
 use App\Models\News\Source;
 use App\Models\News\SourceQueryBuilder;
+use App\Services\UploadService;
 use GuzzleHttp\Promise\Create;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -85,12 +86,18 @@ class IndexController extends Controller
     }
 
 
-    public function update(News $news, Request $request)
+    public function update(News $news, Request $request, UploadService $uploadService)
     {
         $data = $request->validate([
             'trk_id' => 'required',
             'comment' => 'string',
+            'image' => ''
         ]);
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $uploadService->uploadImage($request->file('image'));
+        }
+
         $news->update($data);
         return redirect()->route('admin.news.show', $news->id);
     }

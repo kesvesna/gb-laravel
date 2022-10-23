@@ -112,5 +112,11 @@ Route::group(['middleware' => 'guest'], function() {
                                 ->where('driver', '\w+');
 });
 
+// File manager routes
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+    \UniSharp\LaravelFilemanager\Lfm::routes();
+});
+
+// Auth routes
 Auth::routes();
 

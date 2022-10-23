@@ -12,9 +12,9 @@
 {{--    <li class="nav-item">--}}
 {{--        <a class="nav-link {{ request()->routeIs('admin.news.categories.index')?'active':'' }}" href="{{ route('admin.news.categories.index') }}">Категории</a>--}}
 {{--    </li>--}}
-{{--    <li class="nav-item">--}}
-{{--        <a class="nav-link {{ request()->routeIs('admin.news.sources.index')?'active':'' }}" href="{{ route('admin.news.sources.index') }}">Источники</a>--}}
-{{--    </li>--}}
+    <li class="nav-item">
+        <a class="nav-link {{ request()->routeIs('admin.news.sources.index')?'active':'' }}" href="{{ route('admin.news.sources.index') }}">Источники</a>
+    </li>
     <li class="nav-item">
         <a class="nav-link {{ request()->routeIs('admin.users.index')?'active':'' }}" href="{{ route('admin.users.index') }}">Пользователи</a>
     </li>

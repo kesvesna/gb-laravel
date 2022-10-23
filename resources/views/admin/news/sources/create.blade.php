@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-    @parent Админка редакция источников
+    @parent Админка создание источника
 @endsection
 
 @section('left_menu_for_admin')
@@ -18,8 +18,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h2>Админка {{ $source->id? 'редактирования' : 'создания' }} источника
-                            новости {{ $source->id? 'с ID: ' . $source->id : '' }}</h2>
+                        <h2>Админка создания источника новости</h2>
                     </div>
                     <div class="card-body">
                         @include('inc.message')

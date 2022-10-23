@@ -48,8 +48,8 @@
                                 >
                             </div>
                             <div class="mb-3">
-                                <label for="inputDescription" class="form-label">Текст новости</label>
-                                <textarea type="text" class="form-control" id="inputDescription"
+                                <label for="description" class="form-label">Текст новости</label>
+                                <textarea type="text" class="form-control" id="description"
                                           name="description">{{ $new->description }}</textarea>
                             </div>
                             <div class="mb-3">
@@ -69,4 +69,15 @@
         </div>
     </div>
 @endsection
+
+@push('js-ckeditor')
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.2.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create( document.querySelector( '#description' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
+@endpush
 

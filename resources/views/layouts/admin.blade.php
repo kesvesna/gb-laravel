@@ -38,5 +38,7 @@
         @yield('content')
     </main>
 </div>
+@stack('js')
+@stack('js-ckeditor')
 </body>
 </html>
